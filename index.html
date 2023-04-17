@@ -18,7 +18,7 @@
     <header class="h-[52px] bg-[#00d1b2] text-white">
         <section class="flex justify-between items-center px-2 px-3">
             <div class="flex items-center">
-                <i class="text-[2rem] mr-2.5 fa-solid fa-wallet"></i>
+                <i class="text-[2rem] mr-3.5 fa-solid fa-wallet"></i>
                 <h1 class="text-[2rem] font-semibold">AhorrADAs</h1>
             </div>
             <div>
@@ -35,71 +35,94 @@
             </div>
         </section>
     </header>
-    <main>
-        <section>
-            <div>
-                <div>
-                    <h2>Balance</h2>
-                    <div>
-                        <p>Ganancias</p>
-                        <p>+$0</p>
+    <main class="text-[#4a4a4a] bg-[#f5f5f5]">
+        <section class="m-auto px-6 p-5 py-12">
+            <div class="py-5">
+                <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                    <h2 class="text-[2rem] font-bold mb-11">Balance</h2>
+                    <div class="flex items-center justify-between my-3 py-1.5">
+                        <p class="text-xl">Ganancias</p>
+                        <p class="text-green-600">+$0</p>
                     </div>
-                    <div>
-                        <p>Gastos</p>
-                        <p>-$0</p>
+                    <div class="flex items-center justify-between my-3 py-1.5">
+                        <p class="text-xl">Gastos</p>
+                        <p class="text-red-600">-$0</p>
                     </div>
-                    <div>
-                        <p>Total</p>
-                        <p>$0</p>
+                    <div class="flex items-center justify-between mt-3 pt-1.5">
+                        <p class="text-2xl">Total</p>
+                        <p class="font-bold">$0</p>
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <p>Filtros</p>
-                        <a href="#">Ocultar filtros</a>>
+                <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold">Filtros</h3>
+                        <a href="#" class="text-[#3273dc]">Ocultar filtros</a>
                     </div>
                     <div>
-                        <div>
-                            <label for="filter-type">Tipo</label>
-                            <select name="filter-type" id="filter-type">
-                                <option value="todos">Todos</option>
-                                <option value="gasto">Gasto</option>
-                                <option value="ganancia">Ganancia</option>
-                            </select>
+                        <div class="flex flex-col mb-3">
+                            <label for="filter-type" class="text-[#363636] mb-2 font-bold">Tipo</label>
+                            <div class="flex items-center relative">
+                                <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
+                                <select name="filter-type" id="filter-type" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none">
+                                    <option value="todos">Todos</option>
+                                    <option value="gasto">Gasto</option>
+                                    <option value="ganancia">Ganancia</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label for="filter-category">Categoría</label>
-                            <select name="filter-category" id="filter-category">
-                                <option value="todas">Todas</option>
-                                <option value="comida">Comida</option>
-                                <option value="servicios">Servicios</option>
-                                <option value="salidas">Salidas</option>
-                                <option value="educacion">Educación</option>
-                                <option value="transporte">Transporte</option>
-                                <option value="trabajo">Trabajo</option>
-                            </select>
+                        <div class="flex flex-col mb-3">
+                            <label for="filter-category" class="text-[#363636] mb-2 font-bold">Categoría</label>
+                            <div class="flex items-center relative">
+                                <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
+                                <select class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none" name="filter-category" id="filter-category">
+                                    <option value="todas">Todas</option>
+                                    <option value="comida">Comida</option>
+                                    <option value="servicios">Servicios</option>
+                                    <option value="salidas">Salidas</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="transporte">Transporte</option>
+                                    <option value="trabajo">Trabajo</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label for="filter-date">Desde</label>
-                            <input type="date" id="date-filter" name="date-filter">
+                        <div class="flex flex-col mb-3">
+                            <label for="filter-date" class="text-[#363636] mb-2 font-bold">Desde</label>
+                            <input type="date" id="date-filter" name="date-filter" class="w-full py-1.5 pl-2.5 pr-2.5 rounded border border-[#dbdbdb]">
                         </div>
-                        <div>
-                            <label for="filter-order">Ordenar por</label>
-                            <select name="filter-order" id="filter-order">
-                                <option value="mas-recientes">Más reciente</option>
-                                <option value="menos-recientes">Menos reciente</option>
-                                <option value="mayor-monto">Mayor monto</option>
-                                <option value="menor-monto">Menor monto</option>
-                                <option value="a/z">A/Z</option>
-                                <option value="z/a">Z/A</option>
-                            </select>
+                        <div class="flex flex-col">
+                            <label for="filter-order" class="text-[#363636] mb-2 font-bold">Ordenar por</label>
+                            <div class="flex items-center relative">
+                                <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
+                                <select name="filter-order" id="filter-order" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none">
+                                    <option value="mas-recientes">Más reciente</option>
+                                    <option value="menos-recientes">Menos reciente</option>
+                                    <option value="mayor-monto">Mayor monto</option>
+                                    <option value="menor-monto">Menor monto</option>
+                                    <option value="a/z">A/Z</option>
+                                    <option value="z/a">Z/A</option>
+                                </select>
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                    <div class="flex flex-col mb-6">
+                        <h3 class="text-2xl font-bold mb-6">Operaciones</h3>
+                        <button class="w-3/4 py-1.5 px-4 bg-[#00d1b2] text-white border-transparent rounded">+ Nueva operación</button>
+                    </div>
+                    <div class="hidden"></div>
+                    <div class="flex flex-col items-center text-center my-14">
+                        <figure class="max-w-[350px] py-14">
+                            <img src="./assets/wallet.svg" alt="wallet">
+                        </figure>
+                        <h4 class="text-2xl font-semibold mb-4">Sin resultados</h4>
+                        <p>Cambia los filtros o agrega operaciones</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer>
+    <footer class="h-[50px] flex items-center justify-center text-white bg-[#00d1b2]">
         <div>
             <p>Rocío Chaparro & Verónica Guiñan © 2023</p>
         </div>
