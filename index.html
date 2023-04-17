@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./assets/piggy-bank.png" type="image/x-icon">
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"/>
+
+    <title>AhorrADAs</title>
 </head>
 <body>
-    <header>
-        <section>
-            <div>
-                <i class="fa-solid fa-wallet"></i>
-                <h1>AhorrADAs</h1>
+    <header class="h-[52px] bg-[#00d1b2] text-white">
+        <section class="flex justify-between items-center px-2 px-3">
+            <div class="flex items-center">
+                <i class="text-[2rem] mr-2.5 fa-solid fa-wallet"></i>
+                <h1 class="text-[2rem] font-semibold">AhorrADAs</h1>
             </div>
             <div>
                 <nav>
-                    <ul>
+                    <ul class="flex hidden">
                         <a href=""><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
                         <a href=""><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
                         <a href=""><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
                     </ul>
                 </nav>
-                <div id="hamburger-menu">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+            </div>
+            <div id="hamburger-menu">
+                <i class="text-[1.2rem] fa-solid fa-bars"></i>
             </div>
         </section>
     </header>
