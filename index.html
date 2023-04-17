@@ -7,6 +7,95 @@
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <section>
+            <div>
+                <i class="fa-solid fa-wallet"></i>
+                <h1>AhorrADAs</h1>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <a href=""><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
+                        <a href=""><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
+                        <a href=""><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
+                    </ul>
+                </nav>
+                <div id="hamburger-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <section>
+            <div>
+                <div>
+                    <h2>Balance</h2>
+                    <div>
+                        <p>Ganancias</p>
+                        <p>+$0</p>
+                    </div>
+                    <div>
+                        <p>Gastos</p>
+                        <p>-$0</p>
+                    </div>
+                    <div>
+                        <p>Total</p>
+                        <p>$0</p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p>Filtros</p>
+                        <a href="#">Ocultar filtros</a>>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="filter-type">Tipo</label>
+                            <select name="filter-type" id="filter-type">
+                                <option value="todos">Todos</option>
+                                <option value="gasto">Gasto</option>
+                                <option value="ganancia">Ganancia</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="filter-category">Categoría</label>
+                            <select name="filter-category" id="filter-category">
+                                <option value="todas">Todas</option>
+                                <option value="comida">Comida</option>
+                                <option value="servicios">Servicios</option>
+                                <option value="salidas">Salidas</option>
+                                <option value="educacion">Educación</option>
+                                <option value="transporte">Transporte</option>
+                                <option value="trabajo">Trabajo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="filter-date">Desde</label>
+                            <input type="date" id="date-filter" name="date-filter">
+                        </div>
+                        <div>
+                            <label for="filter-order">Ordenar por</label>
+                            <select name="filter-order" id="filter-order">
+                                <option value="mas-recientes">Más reciente</option>
+                                <option value="menos-recientes">Menos reciente</option>
+                                <option value="mayor-monto">Mayor monto</option>
+                                <option value="menor-monto">Menor monto</option>
+                                <option value="a/z">A/Z</option>
+                                <option value="z/a">Z/A</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <p>Rocío Chaparro & Verónica Guiñan © 2023</p>
+        </div>
+    </footer>
     <script src="./js/main.js"></script>
 </body>
 </html>
