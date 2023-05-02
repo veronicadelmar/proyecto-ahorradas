@@ -182,16 +182,20 @@
         </section>
         <!-- categories -->
         <section id="categories" class="p-5">
-            <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto">
+            <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
                 <div class="flex mt-2">
-                    <input type="text" class="border rounded border-gray-300">
-                    <button class="bg-[#00CA1C] text-[#fff] p-2 rounded">Agregar</button>
+                    <input type="text" class="border rounded border-gray-300 mr-3 w-full">
+                    <button class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
                 </div>
                 <!-- al momento de comenzar con la programación, este listado por defecto debe armarse en un array de objetos con cada categoria -->
                 <ul>
-                    <li>Comida</li>
+                    <li>
+                        Comida
+                        <button>Editar</button>
+                        <button>Eliminar</button>
+                    </li>
                     <li>Servicios</li>
                     <li>Salidas</li>
                     <li>Educación</li>
