@@ -38,13 +38,13 @@
         </section>
     </header>
     <main class="text-[#4a4a4a] bg-[#f5f5f5] lg:grow">
-        <section class="m-auto px-6 p-5 py-12 lg:py-0">
+        <section id="balance-container" class="m-auto px-6 p-5 py-12 lg:py-0">
             <div class="py-5 lg:flex">
                 <div class="lg:flex lg:m-auto">
                     <!-- balance container -->
                     <div class="lg:w-1/3 lg:w-80 lg:mr-6">
                         <!-- balance -->
-                        <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                        <div id="balance" class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
                             <h2 class="text-[2rem] font-bold mb-11">Balance</h2>
                             <div class="flex items-center justify-between my-3 py-1.5">
                                 <p class="text-xl">Ganancias</p>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <!-- filters -->
-                        <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                        <div id="filters-container" class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
                             <div class="flex justify-between items-center mb-6">
                                 <h3 class="text-2xl font-bold">Filtros</h3>
                                 <a href="#" class="text-[#3273dc]">Ocultar filtros</a>
@@ -71,7 +71,7 @@
                                     <label for="filter-type" class="text-[#363636] mb-2 font-bold">Tipo</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select name="filter-type" id="filter-type" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none">
+                                        <select name="filter-type" id="filter-type" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
                                             <option value="todos">Todos</option>
                                             <option value="gasto">Gasto</option>
                                             <option value="ganancia">Ganancia</option>
@@ -83,7 +83,7 @@
                                     <label for="filter-category" class="text-[#363636] mb-2 font-bold">Categoría</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none" name="filter-category" id="filter-category">
+                                        <select class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer" name="filter-category" id="filter-category">
                                             <option value="todas">Todas</option>
                                             <option value="comida">Comida</option>
                                             <option value="servicios">Servicios</option>
@@ -97,14 +97,14 @@
                                 <!-- since -->
                                 <div class="flex flex-col mb-3">
                                     <label for="filter-date" class="text-[#363636] mb-2 font-bold">Desde</label>
-                                    <input type="date" id="date-filter" name="date-filter" class="w-full py-1.5 pl-2.5 pr-2.5 rounded border border-[#dbdbdb]">
+                                    <input type="date" id="date-filter" name="date-filter" class="w-full py-1.5 pl-2.5 pr-2.5 rounded border border-[#dbdbdb] cursor-pointer">
                                 </div>
                                 <!-- sort by -->
                                 <div class="flex flex-col">
                                     <label for="filter-order" class="text-[#363636] mb-2 font-bold">Ordenar por</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select name="filter-order" id="filter-order" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none">
+                                        <select name="filter-order" id="filter-order" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
                                             <option value="mas-recientes">Más reciente</option>
                                             <option value="menos-recientes">Menos reciente</option>
                                             <option value="mayor-monto">Mayor monto</option>
@@ -119,14 +119,14 @@
                     </div>
                     <!-- operations container -->
                     <div class="lg:w-[632px] min-[1408px]:w-[798px]">
-                        <div class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
+                        <div id="operations-container" class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
                             <!-- new operation -->
                             <div class="flex flex-col mb-6 md:flex-row md:justify-between md:items-center">
                                 <h3 class="text-2xl font-bold mb-6 md:mb-0">Operaciones</h3>
-                                <button class="w-[170px] py-2.5 px-4 bg-[#00d1b2] text-white border-transparent rounded">+ Nueva operación</button>
+                                <button id="new-operation-btn" class="w-[170px] py-2.5 px-4 bg-[#00d1b2] text-white border-transparent rounded cursor-pointer">+ Nueva operación</button>
                             </div>
                             <!-- box with results -->
-                            <div id="balance-results" class="hidden">
+                            <div id="balance-results" class="">
                                 <table class="w-full">
                                     <tr class="hidden md:flex md:justify-between">
                                     <th class="md:w-3/12 md:flex md:justify-start md:py-3 md:font-medium">Descripción</th>
@@ -141,8 +141,8 @@
                                         <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">22/04/2023</td>
                                         <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+$50000</td>
                                         <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
-                                            <button><i class="fa-solid fa-pencil"></i></button>
-                                            <button class="ml-2.5 md:ml-[1.875rem]"><i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="cursor-pointer"><i class="fa-solid fa-pencil"></i></button>
+                                            <button id="remove-category" class="ml-2.5 md:ml-[1.875rem] cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
                                         </td>
                                     </tr>
                                     <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
@@ -151,8 +151,8 @@
                                         <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">22/04/2023</td>
                                         <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+$50000</td>
                                         <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
-                                            <button><i class="fa-solid fa-pencil"></i></button>
-                                            <button class="ml-2.5 md:ml-[1.875rem]"><i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="cursor-pointer"><i class="fa-solid fa-pencil"></i></button>
+                                            <button id="remove-category" class="ml-2.5 md:ml-[1.875rem] cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
                                         </td>
                                     </tr>
                                     <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
@@ -161,15 +161,15 @@
                                         <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">22/04/2023</td>
                                         <td class="w-1/2 text-2xl p-3 text-[#f14668] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">-$15000</td>
                                         <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
-                                            <button><i class="fa-solid fa-pencil"></i></button>
-                                            <button class="ml-2.5 md:ml-[1.875rem]"><i class="fa-solid fa-trash-can"></i></button>
+                                            <button class="cursor-pointer"><i class="fa-solid fa-pencil"></i></button>
+                                            <button id="remove-category" class="ml-2.5 md:ml-[1.875rem] cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <!-- box without results -->
-                            <div id="balance-no-results" class="flex flex-col items-center text-center my-14">
-                                <figure class="max-w-[350px] py-14">
+                            <div id="balance-no-results" class="hidden flex flex-col items-center text-center my-14">
+                                <figure class="max-w-[350px] py-14 opacity-80">
                                     <img src="./assets/wallet.svg" alt="wallet">
                                 </figure>
                                 <h4 class="text-2xl font-semibold mb-4">Sin resultados</h4>
@@ -180,7 +180,79 @@
                 </div>
             </div>
         </section>
+        <section id="new-operation-container" class="hidden">
+            <div class="lg:w-[796px] min-[1408px]:w-[888px] m-auto px-6 p-5 py-12">
+                <div class="px-3.5 py-3.5 text-[#4a4a4a] shadow-[0_0_20px_4px_rgba(111,109,109,29%)] rounded bg-white">
+                    <div class="h-full flex flex-col justify-evenly">
+                        <h2 class="text-[2.5rem] font-bold mb-6">Nueva operación</h2>
+                        <div class="flex flex-col mb-3">
+                            <label class="font-bold mb-2" for="description-input">Descripción</label>
+                            <input class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="text" id="description-input">
+                        </div>
+                        <div class="flex flex-col mb-3">
+                            <label class="font-bold mb-2" for="amount-input">Monto</label>
+                            <input class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="number" id="amount-input" value="0">
+                        </div>
+                        <div class="flex flex-col mb-3">
+                            <label class="font-bold mb-2" for="type-select">Tipo</label>
+                            <select id="type-operation" class="py-2 px-3">
+                                <option value="Gasto" id="">Gasto</option>
+                                <option value="Ganancia" id="">Ganancia</option>
+                              </select>
+                        </div>
+                        <div class="flex flex-col mb-3">
+                            <label class="font-bold mb-2" for="categories-select">Categoría</label>
+                            <select class="categories-select py-2 px-3" id="categories-select">
+                                <option value="Comida" id="">Comida</option>
+                                <option value="Servicios" id="">Servicios</option>
+                                <option value="Salidas" id="">Salidas</option>
+                                <option value="Educación" id="">Educación</option>
+                                <option value="Transporte" id="">Transporte</option>
+                                <option value="Trabajo" id="">Trabajo</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col mb-3">
+                            <label class="font-bold mb-2" for="date-input">Fecha</label>
+                            <input class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="date" id="date-input">
+                        </div>
+                        <div class="flex justify-end mt-6 pb-2.5 pt-5">
+                            <button id="operation-check" class="py-2 px-4 rounded cursor-pointer">Agregar</button>
+                            <button id="operation-cancel" class="ml-3 mr-3 py-2 px-4 bg-[#48c774] rounded cursor-pointer text-white">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+    <!-- modal window delete user -->
+    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal">
+        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+            <div class="h-full flex flex-col justify-evenly">
+                <div class="flex items-center justify-center">
+                    <img src="./assets/bin-animated.gif" alt="trash animated icon" class="w-[20%]">
+                </div>
+                <p class="text-[1.3rem] text-center mx-10">¿Desea eliminar la categoria <span class="font-bold">Ahorros</span>?</p>
+                <div class="flex justify-center pb-2.5 pt-5">
+                    <button id="delete-category" class="py-2 px-8 bg-[#48c774] rounded cursor-pointer"><i class="fa-solid fa-check text-white"></i></button>
+                    <button id="no-delete-category" class="ml-3 mr-3 py-2 px-8 bg-[#f14668] rounded cursor-pointer"><i class="fa-solid fa-xmark text-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal window add operation complete -->
+    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="operation-checked">
+        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+            <div class="h-full flex flex-col justify-evenly">
+                <div class="flex items-center justify-center">
+                    <img src="./assets/verified-animated.gif" alt="animated checked icon" class="w-[20%]">
+                </div>
+                <p class="text-[1.3rem] text-center mx-10">Operación añadida exitosamente</p>
+                <div class="flex justify-center pb-2.5 pt-5">
+                    <button id="operation-ok" class="ml-3 mr-3 py-2 px-8 bg-[#48c774] rounded cursor-pointer text-white">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="h-[50px] flex items-center justify-center text-white bg-[#00d1b2]">
         <div>
             <p>Rocío Chaparro & Verónica Guiñan © 2023</p>
