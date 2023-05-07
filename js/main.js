@@ -10,21 +10,21 @@ const addBrightness = (element, filterName) => element.style.filter = (filterNam
 
 
 $("#remove-category").addEventListener("click", () => {
-    removeClass($("#modal"), "hidden")
+    removeClass($("#modal-delete-operation"), "hidden")
     addBrightness($("header"), "brightness(0.5)")
     addBrightness($("main"), "brightness(0.5)")
     addBrightness($("footer"), "brightness(0.5)")
 })
 
 $("#delete-category").addEventListener("click", () => {
-    addClass($("#modal"), "hidden")
+    addClass($("#modal-delete-operation"), "hidden")
     addBrightness($("header"), "brightness()")
     addBrightness($("main"), "brightness()")
     addBrightness($("footer"), "brightness()")
 })
 
 $("#no-delete-category").addEventListener("click", () => {
-    addClass($("#modal"), "hidden")
+    addClass($("#modal-delete-operation"), "hidden")
     addBrightness($("header"), "brightness()")
     addBrightness($("main"), "brightness()")
     addBrightness($("footer"), "brightness()")
@@ -38,26 +38,66 @@ $("#new-operation-btn").addEventListener("click", () => {
     removeClass($("#new-operation-container"), "hidden")
 })
 
-$("#operation-check").addEventListener("click", () => {
-    removeClass($("#operation-checked"), "hidden")
+/* modal operation check  */
+$("#add-operation-btn").addEventListener("click", () => {
+    removeClass($("#modal-new-operation-done"), "hidden")
     addBrightness($("header"), "brightness(0.5)")
     addBrightness($("main"), "brightness(0.5)")
     addBrightness($("footer"), "brightness(0.5)")
-
-    /* hacer aparecer una nueva modal informando que se agrego la operacion */
 })
 
-$("#operation-ok").addEventListener("click", () => {
+
+/* modal operation added ok */
+$("#operation-added-btn").addEventListener("click", () => {
     addClass($("#new-operation-container"), "hidden")
     removeClass($("#balance-container"), "hidden")
-    addClass($("#operation-checked"), "hidden")
+    addClass($("#modal-new-operation-done"), "hidden")
     addBrightness($("header"), "brightness()")
     addBrightness($("main"), "brightness()")
     addBrightness($("footer"), "brightness()")
 })
 
-$("#operation-cancel").addEventListener("click", () => {
+
+/* btn back to balance */
+$("#cancel-add-operation-btn").addEventListener("click", () => {
     addClass($("#new-operation-container"), "hidden")
     removeClass($("#balance-container"), "hidden")
 })
 
+
+/* edit button */
+
+$("#pencil-edit-btn").addEventListener("click", () => {
+    removeClass($("#edit-operation-container"), "hidden")
+    addClass($("#balance-container"), "hidden")
+})
+
+
+
+ //    ------------ edit container buttons
+
+/* edit cancel operation */
+$("#edit-cancel-btn").addEventListener("click", () => {
+    addClass($("#edit-operation-container"), "hidden")
+    removeClass($("#balance-container"), "hidden")
+})
+
+
+/* edit operation */
+$("#edit-btn").addEventListener("click", () => {
+    removeClass($("#modal-edited-operation"), "hidden")
+    addBrightness($("header"), "brightness(0.5)")
+    addBrightness($("main"), "brightness(0.5)")
+    addBrightness($("footer"), "brightness(0.5)")
+})
+
+
+/* operation edited */
+$("#operation-edited-btn").addEventListener("click", () => {
+    addClass($("#modal-edited-operation"), "hidden")
+    addClass($("#edit-operation-container"), "hidden")
+    removeClass($("#balance-container"), "hidden")
+    addBrightness($("header"), "brightness()")
+    addBrightness($("main"), "brightness()")
+    addBrightness($("footer"), "brightness()")
+})
