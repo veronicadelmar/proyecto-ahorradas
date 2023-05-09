@@ -65,7 +65,7 @@ $("#cancel-add-operation-btn").addEventListener("click", () => {
 })
 
 
-/* edit button */
+/* edit button in balance*/
 
 $("#pencil-edit-btn").addEventListener("click", () => {
     removeClass($("#edit-operation-container"), "hidden")
@@ -76,7 +76,7 @@ $("#pencil-edit-btn").addEventListener("click", () => {
 
  //    ------------ edit container buttons
 
-/* edit cancel operation */
+/* cancel edit operation */
 $("#edit-cancel-btn").addEventListener("click", () => {
     addClass($("#edit-operation-container"), "hidden")
     removeClass($("#balance-container"), "hidden")
@@ -92,7 +92,7 @@ $("#edit-btn").addEventListener("click", () => {
 })
 
 
-/* operation edited */
+/* modal operation edited */
 $("#operation-edited-btn").addEventListener("click", () => {
     addClass($("#modal-edited-operation"), "hidden")
     addClass($("#edit-operation-container"), "hidden")
