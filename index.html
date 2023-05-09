@@ -181,7 +181,7 @@
             </div>
         </section>
         <!-- categories -->
-        <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
+        <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72">
             <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
@@ -190,22 +190,42 @@
                     <button class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
                 </div>
                 <!-- al momento de comenzar con la programación, este listado por defecto debe armarse en un array de objetos con cada categoria -->
-                <ul>
-                    <li>
-                        Comida
-                        <button>Editar</button>
-                        <button>Eliminar</button>
+                <ul class="">
+                    <li class="mb-8 flex justify-evenly">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-3/5">Comida</span>
+                        <button class="w-1/5"><i class="fa-solid fa-pencil"></i></button>
+                        <button class="w-1/5"><i class="fa-solid fa-trash-can"></i></button>
                     </li>
-                    <li>Servicios</li>
-                    <li>Salidas</li>
-                    <li>Educación</li>
-                    <li>Transporte</li>
-                    <li>Trabajo</li>
+                    <li class="mb-8">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Servicios</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Salidas</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Educación</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Transporte</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Trabajo</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
                 </ul>
             </article>
         </section>
         <!-- reports -->
-        <section id="reports" class="p-5 py-20 lg:px-40 xl:px-72">
+        <section id="reports" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
             <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Reportes</h2>
                 <figure class="max-w-[350px] m-auto hidden">
@@ -252,22 +272,88 @@
                     </table>
                     <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por categorías</h3>
                     <!-- table = totals by categories -->
-                    <table class="w-full">
-                        <tr>
-                            <th class="mb-2 sm:w-1/4">Categoria</th>
-                            <th class="mb-2 sm:w-1/4">Ganancias</th>
-                            <th class="mb-2 sm:w-1/4">Gastos</th>
-                            <th class="mb-2 sm:w-1/4">Balance</th>
+                    <section class="flex justify-between sm:block" id="totalsByCategories">
+                        <div class="sm:flex sm:justify-between" id="titleTotalsCategories">
+                            <h4 class="mb-2 font-semibold">Categoria</h4>
+                            <h4 class="mb-2 font-semibold">Ganancia</h4>
+                            <h4 class="mb-2 font-semibold">Gastos</h4>
+                            <h4 class="mb-2 font-semibold">Balance</h4>
+                        </div>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Comida</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$0</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$847</p>
+                            <p class="font-semibold mb-2">$68685</p>
+                        </article>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Trabajo</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$102300</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$0</p>
+                            <p class="font-semibold mb-2">$68634</p>
+                        </article>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Ropa</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$0</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$847</p>
+                            <p class="font-semibold mb-2">$68685</p>
+                        </article>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Comida</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$0</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$847</p>
+                            <p class="font-semibold mb-2">$68685</p>
+                        </article>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Comida</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$0</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$847</p>
+                            <p class="font-semibold mb-2">$68685</p>
+                        </article>
+                        <article class="sm:flex sm:justify-between" id="optionsTotalsCategories">
+                            <p class="mb-2">Comida</p>
+                            <p class="text-[#48c774] font-semibold mb-2">+$0</p>
+                            <p class="text-[#f14668] font-semibold mb-2">-$847</p>
+                            <p class="font-semibold mb-2">$68685</p>
+                        </article>
+                    </section>
+
+                    <table class="w-full bg-black">
+                        <tr class="">
+                            <th class="mb-2">Categoria</th>
+                            <th class="mb-2">Ganancias</th>
+                            <th class="mb-2">Gastos</th>
+                            <th class="mb-2">Balance</th>
                         </tr>
-                        <tr>
-                            <th class="mb-2 sm:w-1/4">Servicios</th>
-                            <td class="text-[#48c774] font-semibold mb-2 sm:w-1/4">+$6855</td>
-                            <td class="text-[#f14668] font-semibold mb-2 sm:w-1/4">-$847</td>
-                            <td class="font-semibold mb-2 sm:w-1/4">$686855959</td>
+                        <tr class="">
+                            <th class="mb-2">Comida</th>
+                            <td class="text-[#48c774] font-semibold mb-2">+$6855</td>
+                            <td class="text-[#f14668] font-semibold mb-2">-$847</td>
+                            <td class="font-semibold mb-2">$686855959</td>
                         </tr>
                     </table>
+                    <!-- prueba // dejo estas tablas para luego tomar la decisión de cual usar -->
+                    <!-- <table class="w-full">
+                    
+                        <tr class="text-left">
+                            <th class="mb-2">Categoria</th>
+                            <th class="mb-2">Comida</th> 
+                        </tr>
+                        <tr class="text-left">
+                            <th class="mb-2 sm:w-1/4">Ganancias</th>
+                            <td class="text-[#48c774] font-semibold mb-2">+$6855</td>
+                        </tr>
+                        <tr class="text-left">
+                            <th class="mb-2 sm:w-1/4">Gastos</th>
+                            <td class="text-[#f14668] font-semibold mb-2">-$0</td>
+                        </tr>
+                        <tr class="text-left">
+                            <th class="mb-2">Balance</th>
+                            <td class="font-semibold mb-2">$6855</td>
+                        </tr>
+                    </table> -->
 
-
+                    <h3 class="font-semibold text-2xl pb-8">Totales por mes</h3>
+                    <!-- table = totals by month -->
                 </section>
             </article>
         </section>
