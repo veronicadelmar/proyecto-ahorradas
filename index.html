@@ -268,7 +268,7 @@
         </section>
         <!-- categories -->
         <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
-            <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
+            <article id="new-category-container" class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
                 <div class="flex mt-2 mb-6">
@@ -278,36 +278,50 @@
                 <!-- al momento de comenzar con la programación, este listado por defecto debe armarse en un array de objetos con cada categoria -->
                 <ul class="">
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Comida</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Comida</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Servicios</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Servicios</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Salidas</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Salidas</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Educación</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Educación</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Transporte</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Transporte</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                     <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Trabajo</span>
-                        <button><i class="fa-solid fa-pencil"></i></button>
-                        <button><i class="fa-solid fa-trash-can"></i></button>
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Trabajo</span>
+                        <div>
+                            <button class="mr-6" id="pencil-edit-category-btn"><i class="fa-solid fa-pencil"></i></button>
+                            <button id="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
                     </li>
                 </ul>
+            </article>
+            <article id="edit-category-container" class="hidden bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <!-- edit category -->
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Editar Categoría</h2>
                 <input type="text" class="border rounded border-gray-300 mr-3 w-full h-10">
@@ -461,7 +475,7 @@
         </div>
     </div>
     <!-- modal window edit category -->
-    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-edited-category">
+    <div id="modal-edited-category" class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]">
         <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
