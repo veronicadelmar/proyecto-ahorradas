@@ -266,6 +266,149 @@
                 </div>
             </div>
         </section>
+        <!-- categories -->
+        <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
+            <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
+                <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
+                <label for="category-name" class="font-medium">Nombre</label>
+                <div class="flex mt-2 mb-6">
+                    <input type="text" class="border rounded border-gray-300 mr-3 w-full">
+                    <button class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
+                </div>
+                <!-- al momento de comenzar con la programación, este listado por defecto debe armarse en un array de objetos con cada categoria -->
+                <ul class="">
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Comida</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Servicios</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Salidas</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Educación</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Transporte</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                    <li class="mb-8 flex justify-between">
+                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded w-4/5">Trabajo</span>
+                        <button><i class="fa-solid fa-pencil"></i></button>
+                        <button><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                </ul>
+            </article>
+        </section>
+        <!-- reports -->
+        <section id="reports" class="p-5 py-20 lg:px-40 xl:px-72">
+            <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300">
+                <h2 class="font-bold text-4xl text-neutral-600 mb-10">Reportes</h2>
+                <figure class="max-w-[350px] m-auto hidden">
+                    <img src="./assets/chart.svg" alt="balance chart">
+                </figure>
+                <h3 class="font-semibold text-2xl text-center py-8 hidden">Operaciones insuficientes</h3>
+                <p class="text-lg text-center pb-4 xl:pb-20 hidden">Prueba agregando más opciones</p>
+                <!-- summary, totals by categories, totals by month -->
+                <section class="p-6">
+                    <h3 class="font-semibold text-2xl pb-8">Resumen</h3>
+                    <!-- table = summary -->
+                    <table class="w-full">
+                        <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
+                            <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor ganancia</th>
+                            <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                            </td>
+                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end">+$55555</td>
+                        </tr>
+                        <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
+                            <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor gasto</th>
+                            <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                            </td>
+                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end">-$7754</td>
+                        </tr>
+                        <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
+                            <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor balance</th>
+                            <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                            </td>
+                            <td class="p-1 font-semibold sm:flex sm:w-1/4 sm:justify-end">$585854</td>
+                        </tr>
+                        <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
+                            <th class="p-1 sm:w-1/2">Mes con mayor ganancia</th>
+                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end">2023/04/05</td>
+                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end">+$685548383</td>
+                        </tr>
+                        <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
+                            <th class="p-1 sm:w-1/2">Mes con mayor gasto</th>
+                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end">2023/04/05</td>
+                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end">-$8473257</td>
+                        </tr>
+                    </table>
+                    <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por categorías</h3>
+                    <!-- table = totals by categories -->
+                    <table class="w-full" id="totalsByCategories">
+                        <tr class="hidden sm:flex sm:text-left sm:justify-between">
+                            <th class="mb-2 p-1 w-1/4">Categoria</th>
+                            <th class="mb-2 p-1 w-1/4">Ganancia</th>
+                            <th class="mb-2 p-1 w-1/4">Gastos</th>
+                            <th class="mb-2 p-1 w-1/4">Balance</th>
+                        </tr>
+                        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+                            <th class="mb-2 w-1/4">Comida</th>
+                            <td class="text-[#48c774] font-semibold mb-2 w-1/4">+$0</td>
+                            <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$847</td>
+                            <td class="font-semibold mb-2 w-1/4">$68685</td>
+                        </tr>
+                        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+                            <th class="mb-2 w-1/4">Sueldo</th>
+                            <td class="text-[#48c774] font-semibold mb-2 w-1/4">+$100500</td>
+                            <td class="text-[#f14668] font-semibold mb-2 w-1/4">-0</td>
+                            <td class="font-semibold mb-2 w-1/4">$68685</td>
+                        </tr>
+                        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+                            <th class="mb-2 w-1/4">Ropa</th>
+                            <td class="text-[#48c774] font-semibold mb-2 w-1/4">+$0</td>
+                            <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$84788</td>
+                            <td class="font-semibold mb-2 w-1/4">$68685</td>
+                        </tr>
+                    </table>
+                    <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por mes</h3>
+                    <!-- table = totals by month -->
+                    <table class="w-full" id="totalsByMonth">
+                        <tr class="hidden sm:flex sm:text-left sm:justify-between">
+                            <th class="mb-2 p-1 w-1/4">Mes</th>
+                            <th class="mb-2 p-1 w-1/4">Ganancia</th>
+                            <th class="mb-2 p-1 w-1/4">Gastos</th>
+                            <th class="mb-2 p-1 w-1/4">Balance</th>
+                        </tr>
+                        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+                            <th class="mb-2 w-1/4">3/2023</th>
+                            <td class="text-[#48c774] font-semibold mb-2 w-1/4">+$0</td>
+                            <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$847</td>
+                            <td class="font-semibold mb-2 w-1/4">$68685</td>
+                        </tr>
+                        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+                            <th class="mb-2 w-1/4">4/2023</th>
+                            <td class="text-[#48c774] font-semibold mb-2 w-1/4">+$0</td>
+                            <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$847</td>
+                            <td class="font-semibold mb-2 w-1/4">$68685</td>
+                        </tr>
+                    </table>
+                </section>
+            </article>
+        </section>
     </main>
     <!-- modal window delete operation -->
     <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-delete-operation">
