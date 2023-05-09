@@ -101,3 +101,23 @@ $("#operation-edited-btn").addEventListener("click", () => {
     addBrightness($("main"), "brightness()")
     addBrightness($("footer"), "brightness()")
 })
+
+// click btn balance
+$("#btn-balance").addEventListener("click", () =>{
+    removeClass($("#balance-container"), "hidden")
+    addClass($("#categories"), "hidden")
+    addClass($("#reports"), "hidden")
+})
+// click btn categories
+$("#btn-categories").addEventListener("click", () =>{
+    removeClass($("#categories"), "hidden")
+    addClass($("#balance-container"), "hidden")
+    addClass($("#reports"), "hidden")
+})
+// click btn reports
+$("#btn-reports").addEventListener("click", () =>{
+    removeClass($("#reports"), "hidden")
+    addClass($("#balance-container"), "hidden")
+    addClass($("#categories"), "hidden")
+})
+

@@ -25,9 +25,9 @@
             <div class="lg:w-1/2 lg:w-1/2 lg:flex lg:justify-end">
                 <nav>
                     <ul class="flex hidden lg:flex">
-                        <a href=""><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
-                        <a href="" class="lg:ml-6"><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
-                        <a href="" class="lg:ml-6"><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
+                        <a href="#" id="btn-balance"><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
+                        <a href="#" class="lg:ml-6" id="btn-categories"><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
+                        <a href="#" class="lg:ml-6" id="btn-reports"><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
                     </ul>
                 </nav>
             </div>
@@ -267,7 +267,7 @@
             </div>
         </section>
         <!-- categories -->
-        <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72">
+        <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
             <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
