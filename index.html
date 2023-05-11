@@ -64,9 +64,9 @@
                         <div id="filters-container" class="rounded-md mb-6 px-5 py-5 shadow-[-1px_8px_17px_0px_rgba(169,164,164,52%)]">
                             <div class="flex justify-between items-center mb-6">
                                 <h3 class="text-2xl font-bold">Filtros</h3>
-                                <a href="#" class="text-[#3273dc]">Ocultar filtros</a>
+                                <a href="#" id="hide-filters" class="text-[#3273dc]">Ocultar filtros</a>
                             </div>
-                            <div id="toggle-filters">
+                            <div id="toggle-filters" >
                                 <!-- type -->
                                 <div class="flex flex-col mb-3">
                                     <label for="filterType" class="text-[#363636] mb-2 font-bold">Tipo</label>
@@ -130,21 +130,21 @@
                             <div id="balance-results" class="hidden">
                                 <table class="w-full">
                                     <thead>
-                                            <tr class="hidden md:flex md:justify-between">
-                                            <th class="md:w-3/12 md:flex md:justify-start md:py-3 md:font-medium">Descripción</th>
-                                            <th class="md:w-3/12 md:flex md:justify-start md:py-3 md:font-medium">Categoría</th>
-                                            <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Fecha</th>
-                                            <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Monto</th>
-                                            <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Acciones</th>
-                                            </tr>
+                                        <tr class="hidden md:flex md:justify-between">
+                                        <th class="md:w-3/12 md:flex md:justify-start md:py-3 md:font-medium">Descripción</th>
+                                        <th class="md:w-3/12 md:flex md:justify-start md:py-3 md:font-medium">Categoría</th>
+                                        <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Fecha</th>
+                                        <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Monto</th>
+                                        <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Acciones</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="operationsTable">
-
+                                        
                                     </tbody>
                                 </table>
                             </div>
                             <!-- box without results -->
-                            <div id="balance-no-results" class="hidden flex flex-col items-center text-center my-14">
+                            <div id="balance-no-results" class="flex flex-col items-center text-center my-14">
                                 <figure class="max-w-[350px] py-14 opacity-80">
                                     <img src="./assets/wallet.svg" alt="wallet">
                                 </figure>
