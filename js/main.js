@@ -59,12 +59,14 @@ $("#btn-categories").addEventListener("click", () =>{
     showElement("#categories")
     hideElement("#balance-container")
     hideElement("#reports")
+    hideElement("#new-operation-container")
 })
 // click btn reports
 $("#btn-reports").addEventListener("click", () =>{
     showElement("#reports")
     hideElement("#balance-container")
     hideElement("#categories")
+    hideElement("#new-operation-container")
 })
 
 
@@ -191,12 +193,17 @@ const renderOperations = (operations) => {
     if (operations.length) {
         hideElement("#balance-no-results")
         showElement("#balance-results")
-        for (const { id, descriptionInput, amountInput, dateInput } of operations) {
+        for (const { id, descriptionInput, category, amountInput, dateInput, type } of operations) {
+            const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === category)
+
+
+
             $("#operationsTable").innerHTML += `
             <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
                 <td class="w-1/2 font-medium p-3 md:py-3 md:px-0 md:w-3/12 md:flex md:justify-start">${descriptionInput}</td>
-                <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+${amountInput}</td>
+                <td class="flex justify-end w-1/2 text-xs p-3 text-[#00947e] md:w-3/12 md:justify-start md:py-3 md:px-0"><span class="bg-[#ebfffc] px-2 py-0.5 rounded">${categorySelected.type}</span></td>
                 <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">${dateInput}</td>
+                <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+${amountInput}</td>
                 <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
                     <button id="pencil-edit-btn" class="cursor-pointer" onclick="editOperationForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
                     <button id="trash-delete-btn" class="ml-2.5 md:ml-[1.875rem] cursor-pointer" onclick="deleteOperationForm('${id}')"><i class="fa-solid fa-trash-can"></i></button>
@@ -210,13 +217,35 @@ const renderOperations = (operations) => {
     }
 }
 
+//render type options
+const renderTypeOptions = (types) => {
+    cleanContainer("#typeOperation")
+    for (const type of types) {
+        $("#typeOperation").innerHTML += `
+        <option value="${type.type}" data-id="${type.id}">${type.type}</option>`
+    }
+}
+
+//render categories options
+const renderCategoriesOptions = (categories) => {
+    cleanContainer("#categoriesSelect")
+    for (const category of categories) {
+        $("#categoriesSelect").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+    }
+}
+
 //save new operation data
 const saveOperationData = () => {
+    const typeId = $("#typeOperation").options[$("#typeOperation").selectedIndex].getAttribute("data-id")
+    const categoryId = $("#categoriesSelect").options[$("#categoriesSelect").selectedIndex].getAttribute("data-id")
     return {
         id: randomId(),
         descriptionInput: $("#descriptionInput").value,
         amountInput: $("#amountInput").value,
-        dateInput: $("#dateInput").value
+        dateInput: $("#dateInput").value,
+        type: typeId,
+        category: categoryId
     }
 }
 
@@ -297,6 +326,9 @@ const initializeApp = () => {
     setDataStorage("categories", allCategories)
     setDataStorage("type", allType)
     renderOperations(allOperations)
+    renderCategoriesOptions(allCategories)
+    renderTypeOptions(allType)
+
 
     /* new operation */
     $("#new-operation-btn").addEventListener("click", () => {
