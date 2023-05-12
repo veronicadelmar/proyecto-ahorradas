@@ -15,29 +15,6 @@ $("#hide-filters").addEventListener("click", () => {
 
 
 
-
-/* $("#trash-delete-btn").addEventListener("click", () => {
-    showElement("#modal-delete-operation")
-    addBrightness("header")
-    addBrightness("main")
-    addBrightness("footer")
-}) */
-
-$("#delete-category").addEventListener("click", () => {
-    hideElement("#modal-delete-operation")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-})
-
-$("#no-delete-category").addEventListener("click", () => {
-    hideElement("#modal-delete-operation")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-})
-
-
 /* modal operation check  */
 $("#add-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
@@ -50,22 +27,11 @@ $("#add-operation-btn").addEventListener("click", (e) => {
 
 
 /* btn back to balance */
-$("#cancel-operation-btn").addEventListener("click", () => {
+$("#cancel-operation-btn").addEventListener("click", (e) => {
+    e.preventDefault()
     hideElement("#new-operation-container")
     showElement("#balance-container")
 })
-
-
-/* edit button in balance*/
-
-/* $("#pencil-edit-btn").addEventListener("click", () => {
-    showElement("#new-operation-container")
-    hideElement("#balance-container")
-    hideElement("#new-operation-title")
-    showElement("#edit-operation-title")
-    hideElement("#add-operation-btn")
-    showElement("#edit-operation-btn")
-}) */
 
 
 
@@ -81,15 +47,6 @@ $("#edit-operation-btn").addEventListener("click", (e) => {
 })
 
 
-/* modal operation edited */
-$("#operation-edited-btn").addEventListener("click", () => {
-    hideElement("#modal-edited-operation")
-    hideElement("#new-operation-container")
-    showElement("#balance-container")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-})
 
 // click btn balance
 $("#btn-balance").addEventListener("click", () =>{
@@ -142,30 +99,30 @@ $("#cancel-editCategory-btn").addEventListener("click", () =>{
     removeBrightness("footer")
 })
 
-$("#delete-category-btn").addEventListener("click", () =>{
-    showElement("#modal-delete-category")
+/* $("#deleted-operation-btn").addEventListener("click", () =>{
+    showElement("#modal-deleted-operation")
     addBrightness("header")
     addBrightness("main")
     addBrightness("footer")
-})
+}) */
 
-$("#delete-category-current").addEventListener("click", () =>{
-    hideElement("#modal-delete-category")
+/* $("#deleted-operation-current").addEventListener("click", () =>{
+    hideElement("#modal-deleted-operation")
     showElement("#new-category-container")
     hideElement("#edit-category-container")
     removeBrightness("header")
     removeBrightness("main")
     removeBrightness("footer")
-})
+}) */
 
-$("#no-delete-category-current").addEventListener("click", () =>{
-    hideElement("#modal-delete-category")
+/* $("#no-deleted-operation-current").addEventListener("click", () =>{
+    hideElement("#modal-deleted-operation")
     showElement("#new-category-container")
     hideElement("#edit-category-container")
     removeBrightness("header")
     removeBrightness("main")
     removeBrightness("footer")
-})
+}) */
 
 /// JS PURO INICIO
 
@@ -241,8 +198,8 @@ const renderOperations = (operations) => {
                 <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+${amountInput}</td>
                 <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">${dateInput}</td>
                 <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
-                    <button id="pencil-edit-btn" class="cursor-pointer"><i class="fa-solid fa-pencil"></i></button>
-                    <button id="trash-delete-btn" class="ml-2.5 md:ml-[1.875rem] cursor-pointer" onclick="deleteOperation('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+                    <button id="pencil-edit-btn" class="cursor-pointer" onclick="editOperationForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
+                    <button id="trash-delete-btn" class="ml-2.5 md:ml-[1.875rem] cursor-pointer" onclick="deleteOperationForm('${id}')"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
             `
@@ -264,7 +221,7 @@ const saveOperationData = () => {
 }
 
 //add new operation data array in local
-const addOperation = () => {
+const addOperationForm = () => {
     const currentOperations = getOperations("operations")
     const newOperation = saveOperationData()
     currentOperations.push(newOperation)
@@ -273,15 +230,72 @@ const addOperation = () => {
     renderOperations(currentOperations)
 }
 
+/*   ---------DELETED OPERATION---------------------DELETED OPERATION-------------------------    DELETED OPERATION  */
+
 //delete operation data array in local
-const deleteOperation = (id) => {
-    const currentOperations = getOperations("operations").filter(user => user.id !== id)
+const deleteOperationForm = (id) => {
+    showElement("#modal-delete-operation")
+    addBrightness("header")
+    addBrightness("main")
+    addBrightness("footer")
+    $("#deleted-operation").setAttribute("data-id", id)
+}
+
+//operation deleted
+const deletedOperation = () => {
+    hideElement("#modal-delete-operation")
+    removeBrightness("header")
+    removeBrightness("main")
+    removeBrightness("footer")
+    const operationId = $("#deleted-operation").getAttribute("data-id")
+    const currentOperations = getOperations("operations").filter(operation => operation.id !== operationId)
     setOperations("operations", currentOperations)
     renderOperations(currentOperations)
 }
 
+/*   ---------DELETED OPERATION---------------------DELETED OPERATION-------------------------    DELETED OPERATION  */
+//HIJODE PERRAAAAA
+
+
+//edit operation data array in local
+const editOperationForm = (id) => {
+    showElement("#new-operation-container")
+    hideElement("#balance-container")
+    hideElement("#new-operation-title")
+    showElement("#edit-operation-title")
+    hideElement("#add-operation-btn")
+    showElement("#edit-operation-btn")
+    $("#operation-edited-btn").setAttribute("data-id", id)
+    const operationSelected = getOperations("operations").find(operation => operation.id === id)
+    $("#descriptionInput").value = operationSelected.descriptionInput
+    $("#amountInput").value = operationSelected.amountInput
+    $("#dateInput").value = operationSelected.dateInput
+}
+
+//edited operation
+const editedOperation = () => {
+    hideElement("#modal-edited-operation")
+    hideElement("#new-operation-container")
+    showElement("#balance-container")
+    removeBrightness("header")
+    removeBrightness("main")
+    removeBrightness("footer")
+    const operationId = $("#operation-edited-btn").getAttribute("data-id")
+    const editedOperations = getOperations("operations").map(operation => {
+        if (operation.id === operationId) {
+            return saveOperationData()
+        }
+        return operation
+    })
+    setOperations("operations", editedOperations)
+    renderOperations(editedOperations)
+}
+
 
 const initializeApp = () => {
+    setOperations("operations", allOperations)
+    renderOperations(allOperations)
+
     /* new operation */
     $("#new-operation-btn").addEventListener("click", () => {
         showElement("#add-operation-btn")
@@ -300,7 +314,25 @@ const initializeApp = () => {
         removeBrightness("header")
         removeBrightness("main")
         removeBrightness("footer")
-        addOperation()
+        addOperationForm()
+    })
+
+
+    /* modal edited operation btn ok */
+    $("#operation-edited-btn").addEventListener("click", () => {
+        editedOperation()
+    })
+    
+
+    /* modal deleted operation btn ok*/
+    $("#deleted-operation").addEventListener("click", deletedOperation)
+
+    /* modal no deleted operation btn ok */
+    $("#no-deleted-operation").addEventListener("click", () => {
+        hideElement("#modal-delete-operation")
+        removeBrightness("header")
+        removeBrightness("main")
+        removeBrightness("footer")
     })
 }
 
