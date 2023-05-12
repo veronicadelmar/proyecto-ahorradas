@@ -130,8 +130,8 @@ $("#cancel-editCategory-btn").addEventListener("click", () =>{
 const randomId = () => self.crypto.randomUUID()
 
 //localStorage
-const getOperations = (key) => JSON.parse(localStorage.getItem(key))
-const setOperations = (key, array) => localStorage.setItem(key, JSON.stringify(array))
+const getDataStorage = (key) => JSON.parse(localStorage.getItem(key))
+const setDataStorage = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
 //cleanContainer
 const cleanContainer = (selector) => $(selector).innerHTML = ""
@@ -177,12 +177,12 @@ const defaultCategoriesOptions = [
 ]
 
 
-const allOperations = getOperations("operations") || []
-const allType = getOperations("type") || defaultTypeOptions
-const allCategories = getOperations("categories") || defaultCategoriesOptions
+const allOperations = getDataStorage("operations") || []
+const allType = getDataStorage("type") || defaultTypeOptions
+const allCategories = getDataStorage("categories") || defaultCategoriesOptions
 
-if (!getOperations("operations")) {
-    setOperations("operations", [])
+if (!getDataStorage("operations")) {
+    setDataStorage("operations", [])
 }
 
 
@@ -222,10 +222,10 @@ const saveOperationData = () => {
 
 //add new operation data array in local
 const addOperationForm = () => {
-    const currentOperations = getOperations("operations")
+    const currentOperations = getDataStorage("operations")
     const newOperation = saveOperationData()
     currentOperations.push(newOperation)
-    setOperations("operations", currentOperations)
+    setDataStorage("operations", currentOperations)
     console.log(currentOperations)
     renderOperations(currentOperations)
 }
@@ -248,8 +248,8 @@ const deletedOperation = () => {
     removeBrightness("main")
     removeBrightness("footer")
     const operationId = $("#deleted-operation").getAttribute("data-id")
-    const currentOperations = getOperations("operations").filter(operation => operation.id !== operationId)
-    setOperations("operations", currentOperations)
+    const currentOperations = getDataStorage("operations").filter(operation => operation.id !== operationId)
+    setDataStorage("operations", currentOperations)
     renderOperations(currentOperations)
 }
 
@@ -266,7 +266,7 @@ const editOperationForm = (id) => {
     hideElement("#add-operation-btn")
     showElement("#edit-operation-btn")
     $("#operation-edited-btn").setAttribute("data-id", id)
-    const operationSelected = getOperations("operations").find(operation => operation.id === id)
+    const operationSelected = getDataStorage("operations").find(operation => operation.id === id)
     $("#descriptionInput").value = operationSelected.descriptionInput
     $("#amountInput").value = operationSelected.amountInput
     $("#dateInput").value = operationSelected.dateInput
@@ -281,19 +281,21 @@ const editedOperation = () => {
     removeBrightness("main")
     removeBrightness("footer")
     const operationId = $("#operation-edited-btn").getAttribute("data-id")
-    const editedOperations = getOperations("operations").map(operation => {
+    const editedOperations = getDataStorage("operations").map(operation => {
         if (operation.id === operationId) {
             return saveOperationData()
         }
         return operation
     })
-    setOperations("operations", editedOperations)
+    setDataStorage("operations", editedOperations)
     renderOperations(editedOperations)
 }
 
 
 const initializeApp = () => {
-    setOperations("operations", allOperations)
+    setDataStorage("operations", allOperations)
+    setDataStorage("categories", allCategories)
+    setDataStorage("type", allType)
     renderOperations(allOperations)
 
     /* new operation */
