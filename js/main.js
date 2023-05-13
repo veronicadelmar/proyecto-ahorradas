@@ -14,7 +14,6 @@ $("#hide-filters").addEventListener("click", () => {
 })
 
 
-
 /* modal operation check  */
 $("#add-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
@@ -71,10 +70,6 @@ $("#btn-reports").addEventListener("click", () =>{
 
 
 // edit and delete category
-$("#pencil-edit-category-btn").addEventListener("click", () =>{
-    showElement("#edit-category-container")
-    hideElement("#new-category-container")
-})
 
 $("#add-editCategory-btn").addEventListener("click", () =>{
     showElement("#modal-edited-category")
@@ -101,30 +96,7 @@ $("#cancel-editCategory-btn").addEventListener("click", () =>{
     removeBrightness("footer")
 })
 
-/* $("#deleted-operation-btn").addEventListener("click", () =>{
-    showElement("#modal-deleted-operation")
-    addBrightness("header")
-    addBrightness("main")
-    addBrightness("footer")
-}) */
 
-/* $("#deleted-operation-current").addEventListener("click", () =>{
-    hideElement("#modal-deleted-operation")
-    showElement("#new-category-container")
-    hideElement("#edit-category-container")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-}) */
-
-/* $("#no-deleted-operation-current").addEventListener("click", () =>{
-    hideElement("#modal-deleted-operation")
-    showElement("#new-category-container")
-    hideElement("#edit-category-container")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-}) */
 
 /// JS PURO INICIO
 
@@ -138,17 +110,6 @@ const setDataStorage = (key, array) => localStorage.setItem(key, JSON.stringify(
 //cleanContainer
 const cleanContainer = (selector) => $(selector).innerHTML = ""
 
-//default type options SELECT
-const defaultTypeOptions = [
-    {
-        id: randomId(),
-        type: "Gasto"
-    },
-    {
-        id: randomId(),
-        type: "Ganancia"
-    }
-]
 
 //default categories options SELECT
 const defaultCategoriesOptions = [
@@ -180,7 +141,6 @@ const defaultCategoriesOptions = [
 
 
 const allOperations = getDataStorage("operations") || []
-const allType = getDataStorage("type") || defaultTypeOptions
 const allCategories = getDataStorage("categories") || defaultCategoriesOptions
 
 if (!getDataStorage("operations")) {
@@ -194,19 +154,18 @@ const renderOperations = (operations) => {
         hideElement("#balance-no-results")
         showElement("#balance-results")
         for (const { id, descriptionInput, category, amountInput, dateInput, type } of operations) {
+            const spentAmount = type === "Ganancia" ? "text-[#48c774]" : "text-[#f14668]"
+            const gainAmount = type === "Ganancia" ? "+" : "-"
             const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === category)
-
-
-
             $("#operationsTable").innerHTML += `
             <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
                 <td class="w-1/2 font-medium p-3 md:py-3 md:px-0 md:w-3/12 md:flex md:justify-start">${descriptionInput}</td>
                 <td class="flex justify-end w-1/2 text-xs p-3 text-[#00947e] md:w-3/12 md:justify-start md:py-3 md:px-0"><span class="bg-[#ebfffc] px-2 py-0.5 rounded">${categorySelected.type}</span></td>
                 <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">${dateInput}</td>
-                <td class="w-1/2 text-2xl p-3 text-[#48c774] font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">+${amountInput}</td>
+                <td class="${spentAmount} w-1/2 text-2xl p-3 font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">${gainAmount}${amountInput}</td>
                 <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
-                    <button id="pencil-edit-btn" class="cursor-pointer" onclick="editOperationForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
-                    <button id="trash-delete-btn" class="ml-2.5 md:ml-[1.875rem] cursor-pointer" onclick="deleteOperationForm('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="pencil-edit-btn cursor-pointer" onclick="editOperationForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
+                    <button class="trash-delete-btn ml-2.5 md:ml-[1.875rem] cursor-pointer" onclick="deleteOperationForm('${id}')"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
             `
@@ -217,14 +176,6 @@ const renderOperations = (operations) => {
     }
 }
 
-//render type options
-const renderTypeOptions = (types) => {
-    cleanContainer("#typeOperation")
-    for (const type of types) {
-        $("#typeOperation").innerHTML += `
-        <option value="${type.type}" data-id="${type.id}">${type.type}</option>`
-    }
-}
 
 //render categories options
 const renderCategoriesOptions = (categories) => {
@@ -237,14 +188,14 @@ const renderCategoriesOptions = (categories) => {
 
 //save new operation data
 const saveOperationData = () => {
-    const typeId = $("#typeOperation").options[$("#typeOperation").selectedIndex].getAttribute("data-id")
+    const typeValue = $("#typeOperation").value
     const categoryId = $("#categoriesSelect").options[$("#categoriesSelect").selectedIndex].getAttribute("data-id")
     return {
         id: randomId(),
         descriptionInput: $("#descriptionInput").value,
         amountInput: $("#amountInput").value,
         dateInput: $("#dateInput").value,
-        type: typeId,
+        type: typeValue,
         category: categoryId
     }
 }
@@ -268,6 +219,8 @@ const deleteOperationForm = (id) => {
     addBrightness("main")
     addBrightness("footer")
     $("#deleted-operation").setAttribute("data-id", id)
+    const selectedOperation = getDataStorage("operations").find(operation => operation.id === id)
+    $("#modal-operation-name").innerHTML = selectedOperation.descriptionInput
 }
 
 //operation deleted
@@ -290,8 +243,6 @@ const deletedOperation = () => {
 const editOperationForm = (id) => {
     showElement("#new-operation-container")
     hideElement("#balance-container")
-    hideElement("#new-operation-title")
-    showElement("#edit-operation-title")
     hideElement("#add-operation-btn")
     showElement("#edit-operation-btn")
     $("#operation-edited-btn").setAttribute("data-id", id)
@@ -324,10 +275,8 @@ const editedOperation = () => {
 const initializeApp = () => {
     setDataStorage("operations", allOperations)
     setDataStorage("categories", allCategories)
-    setDataStorage("type", allType)
     renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
-    renderTypeOptions(allType)
 
 
     /* new operation */
@@ -336,8 +285,8 @@ const initializeApp = () => {
         hideElement("#edit-operation-btn")
         hideElement("#balance-container")
         showElement("#new-operation-container")
-        hideElement("#edit-operation-title")
-        showElement("#new-operation-title")
+        $("#form-operation").reset()
+        $("#operation-title").innerHTML = "Nueva operación"
     })
 
     /* modal operation added ok */
@@ -350,6 +299,11 @@ const initializeApp = () => {
         removeBrightness("footer")
         addOperationForm()
     })
+
+    //pencil edit categoy container
+/*     $(".pencil-edit-btn").addEventListener("click", () => {
+        $("#operation-title").innerHTML = "Editar operación"
+    }) */
 
 
     /* modal edited operation btn ok */
