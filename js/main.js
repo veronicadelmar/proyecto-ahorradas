@@ -9,6 +9,24 @@ const showElement = (selector) => $(selector).classList.remove("hidden")
 const addBrightness = (selector) => $(selector).style.filter = ("brightness(0.5)")
 const removeBrightness = (selector) => $(selector).style.filter = ("brightness()")
 
+//MENU HAMBURGUESA 
+
+$("#hamburger-menu").addEventListener("click", () => {
+    $(".nav-ul").classList.toggle("hidden")
+    $(".nav-ul").classList.toggle("text-[#4a4a4a]")
+    $("main").classList.toggle("mt-[130px]")
+    $(".header-section").classList.toggle("relative")
+    $(".nav-bar").classList.toggle("absolute")
+    $(".nav-bar").classList.toggle("top-[50px]")
+    $(".nav-bar").classList.toggle("left-[5px]")
+    $("nav").classList.toggle("p-2.5")
+    $(".nav-ul").classList.toggle("flex-col")
+    $("#btn-balance").classList.toggle("mb-[15px]")
+    $("#btn-categories").classList.toggle("mb-[15px]")
+    $("#btn-reports").classList.toggle("mb-[15px]")
+})
+
+
 $("#hide-filters").addEventListener("click", () => {
     $("#toggle-filters").classList.toggle("hidden")
 })
