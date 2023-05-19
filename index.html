@@ -15,19 +15,19 @@
 </head>
 <body class="flex flex-col h-screen">
     <header class="h-[52px] bg-[#00d1b2] text-white lg:h-[93px] lg:flex lg:items-center lg:px-8">
-        <section class="header-section flex justify-between items-center px-2 px-3 lg:w-full lg:px-6">
+        <section class="header-section flex relative justify-between items-center px-2 px-3 lg:w-full lg:px-6">
             <!-- logo -->
             <a href="./index.html" class="flex items-center lg:w-1/2">
                 <i class="text-[2rem] mr-3.5 fa-solid fa-wallet lg:text-[2.5rem]"></i>
                 <h1 class="text-[2rem] font-semibold lg:text-[2.5rem]">AhorrADAs</h1>
             </a>
             <!-- navbar -->
-            <div class="nav-bar lg:w-1/2 lg:w-1/2 lg:flex lg:justify-end">
-                <nav>
-                    <ul class="nav-ul flex hidden lg:flex">
-                        <a href="#" id="btn-balance"><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
-                        <a href="#" class="lg:ml-6" id="btn-categories"><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
-                        <a href="#" class="lg:ml-6" id="btn-reports"><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
+            <div class="nav-bar absolute top-[50px] left-[5px] lg:top-[0] lg:left-[5px] lg:w-1/2 lg:w-1/2 lg:flex lg:justify-end lg:relative">
+                <nav class="p-2.5 text-[#4a4a4a] lg:p-0 lg:text-white">
+                    <ul class="nav-ul flex flex-col hidden lg:flex lg:flex-row">
+                        <a href="#" id="btn-balance" class="mb-[15px] lg:mb-[0px]"><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
+                        <a href="#" class="lg:ml-6 mb-[15px] lg:mb-[0px]" id="btn-categories"><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
+                        <a href="#" class="lg:ml-6 mb-[15px] lg:mb-[0px]" id="btn-reports"><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
                     </ul>
                 </nav>
             </div>
@@ -37,7 +37,7 @@
             </div>
         </section>
     </header>
-    <main class="text-[#4a4a4a] bg-[#f5f5f5] grow">
+    <main class="text-[#4a4a4a] bg-[#f5f5f5] grow lg:mt-[0px]">
         <!-- balance, filter and operation container -->
         <section id="balance-container" class="m-auto px-6 p-5 py-12 lg:py-0">
             <div class="py-5 lg:flex">
