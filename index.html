@@ -85,13 +85,7 @@
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
                                         <select id="filter-category" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer" name="filter-category">
-<!--                                             <option value="todas">Todas</option>
-                                            <option value="comida">Comida</option>
-                                            <option value="servicios">Servicios</option>
-                                            <option value="salidas">Salidas</option>
-                                            <option value="educacion">Educación</option>
-                                            <option value="transporte">Transporte</option>
-                                            <option value="trabajo">Trabajo</option> -->
+
                                         </select>
                                     </div>
                                 </div>
@@ -204,7 +198,7 @@
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
                 <div class="flex mt-2 mb-6">
-                    <input id="category-input" type="text" class="border rounded border-gray-300 mr-3 w-full" autofocus>
+                    <input id="category-input" type="text" class=" px-1.5 border rounded border-gray-300 mr-3 w-full" autofocus>
                     <button id="add-category-btn" class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
                 </div>
                 <ul id="category-list">
@@ -215,7 +209,7 @@
             <article id="edit-category-container" class="hidden bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <!-- edit category -->
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Editar Categoría</h2>
-                <input id="edit-category-input" type="text" class="border rounded border-gray-300 mr-3 w-full h-10" autofocus>
+                <input id="edit-category-input" type="text" class="px-1.5 border rounded border-gray-300 mr-3 w-full h-10" autofocus>
                 <div class="flex justify-end mt-6 pb-2.5 pt-5">
                     <button id="cancel-editCategory-btn" class="ml-3 mr-3 py-2 px-4 rounded cursor-pointer ">Cancelar</button>
                     <button id="add-editCategory-btn" class="py-2 px-4 bg-[#48c774] rounded cursor-pointer text-white">Editar</button>
@@ -241,38 +235,41 @@
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor ganancia</th>
                             <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
-                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded" id="best-profit"></span>
                             </td>
-                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end">+$55555</td>
+                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end" id="best-profit-amount"></td>
                         </tr>
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor gasto</th>
                             <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
-                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded"></span>
                             </td>
-                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end">-$7754</td>
+                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end"></td>
                         </tr>
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor balance</th>
                             <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
-                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Categoria</span>
+                                <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded"></span>
                             </td>
-                            <td class="p-1 font-semibold sm:flex sm:w-1/4 sm:justify-end">$585854</td>
+                            <td class="p-1 font-semibold sm:flex sm:w-1/4 sm:justify-end"></td>
                         </tr>
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="p-1 sm:w-1/2">Mes con mayor ganancia</th>
-                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end">2023/04/05</td>
-                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end">+$685548383</td>
+                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end" id="best-month-profit"></td>
+                            <td class="p-1 text-[#48c774] font-semibold sm:flex sm:w-1/4 sm:justify-end" id="best-month-profit-amount"></td>
                         </tr>
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="p-1 sm:w-1/2">Mes con mayor gasto</th>
-                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end">2023/04/05</td>
-                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end">-$8473257</td>
+                            <td class="p-1 sm:flex sm:w-1/4 sm:justify-end"></td>
+                            <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end"></td>
                         </tr>
                     </table>
+
+
+                    <!-- HACER LUEGOOOO  -->
                     <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por categorías</h3>
                     <!-- table = totals by categories -->
-                    <table class="w-full" id="totalsByCategories">
+                    <!-- <table class="w-full" id="totalsByCategories">
                         <tr class="hidden sm:flex sm:text-left sm:justify-between">
                             <th class="mb-2 p-1 w-1/4">Categoria</th>
                             <th class="mb-2 p-1 w-1/4">Ganancia</th>
@@ -297,10 +294,10 @@
                             <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$84788</td>
                             <td class="font-semibold mb-2 w-1/4">$68685</td>
                         </tr>
-                    </table>
+                    </table> -->
                     <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por mes</h3>
                     <!-- table = totals by month -->
-                    <table class="w-full" id="totalsByMonth">
+                    <!-- <table class="w-full" id="totalsByMonth">
                         <tr class="hidden sm:flex sm:text-left sm:justify-between">
                             <th class="mb-2 p-1 w-1/4">Mes</th>
                             <th class="mb-2 p-1 w-1/4">Ganancia</th>
@@ -319,7 +316,7 @@
                             <td class="text-[#f14668] font-semibold mb-2 w-1/4">-$847</td>
                             <td class="font-semibold mb-2 w-1/4">$68685</td>
                         </tr>
-                    </table>
+                    </table> -->
                 </section>
             </article>
         </section>

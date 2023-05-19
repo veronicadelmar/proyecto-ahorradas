@@ -297,8 +297,80 @@ const editedCategory = (id) => {
 }
 
 
+// render summary
+const renderSummary = () =>{
+    const currentOperations = getDataStorage("operations")
+    if (currentOperations.length >= 2){
+        hideElement(".insufficientOperations")
+        showElement(".summaryContainer")
+        bestProfitCategory(currentOperations)
+        bestProfitMonths(currentOperations)
+    } else {
+        showElement(".insufficientOperations")
+        hideElement(".summaryContainer")
+    }
+}
+
+// best profit category
+const bestProfitCategory = (operations) => {
+    const categories = getDataStorage("categories")
+    let profitCategory = 0
+    let categoryId = ""
+
+    for (const category of categories) {
+      const profit = operations.reduce((total, operation) => {
+        if (operation.category === category.id && operation.type === "Ganancia") {
+          return total + parseFloat(operation.amountInput)
+        }
+        return total
+      }, 0)
+  
+      if (profit > profitCategory) {
+        profitCategory = profit
+        categoryId = category.id
+      }
+    }
+    $("#best-profit").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
+    $("#best-profit-amount").innerHTML = "+"+profitCategory
+  }
 
 
+// best profit months
+  const bestProfitMonths = (operations) => {
+    let bestMonths = ""
+    let bestProfit = 0
+    let operationsWithoutDays = []
+    let uniqueMonths = []
+    for(const operation of operations){
+        const dateInput = new Date(operation.dateInput)
+        let month = dateInput.getMonth()+1;
+        let year = dateInput.getFullYear();
+        const yearMonth = year+"/"+month 
+        if(!uniqueMonths.includes(yearMonth)){
+            uniqueMonths.push(yearMonth)
+        }
+        operationsWithoutDays.push({
+            dateWithoutDays: yearMonth,
+            amount: operation.amountInput,
+            type: operation.type 
+        })
+    }
+   
+    for(let i=0; i < uniqueMonths.length; i++){
+        let profit = 0
+        for(const operation of operationsWithoutDays){
+            if(uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Ganancia"){
+                profit += parseInt(operation.amount)
+            }
+        }
+        if(profit > bestProfit){
+            bestProfit = profit
+            bestMonths = uniqueMonths[i]
+        }
+    }
+    $("#best-month-profit").innerHTML = bestMonths
+    $("#best-month-profit-amount").innerHTML = "+"+bestProfit
+  };
 
 
 
@@ -308,6 +380,7 @@ const initializeApp = () => {
     renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
     renderCategoriesList(allCategories)
+    console.log(allOperations)
     
 
     // click btn balance
@@ -328,10 +401,13 @@ const initializeApp = () => {
 
     // click btn reports
     $("#btn-reports").addEventListener("click", () =>{
+
+        renderSummary()
         showElement("#reports")
         hideElement("#balance-container")
         hideElement("#categories")
         hideElement("#new-operation-container")
+
     })
 
     /* new operation */
@@ -379,13 +455,6 @@ const initializeApp = () => {
         addNewCategory()
         $("#category-input").value = ""
     })
-
-    //edit category btn
-    // $(".pencil-edit-category-btn").addEventListener("click", () => {
-    //     hideElement("#new-category-container")
-    //     showElement("#edit-category-container")
-    //     editCategory()
-    // })
 
     //candel edit category
     $("#cancel-editCategory-btn").addEventListener("click", () => {
