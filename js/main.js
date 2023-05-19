@@ -24,7 +24,6 @@ $("#add-operation-btn").addEventListener("click", (e) => {
 })
 
 
-
 /* btn back to balance */
 $("#cancel-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
@@ -43,57 +42,6 @@ $("#edit-operation-btn").addEventListener("click", (e) => {
     addBrightness("header")
     addBrightness("main")
     addBrightness("footer")
-})
-
-
-
-// click btn balance
-$("#btn-balance").addEventListener("click", () =>{
-    showElement("#balance-container")
-    hideElement("#categories")
-    hideElement("#reports")
-})
-// click btn categories
-$("#btn-categories").addEventListener("click", () =>{
-    showElement("#categories")
-    hideElement("#balance-container")
-    hideElement("#reports")
-    hideElement("#new-operation-container")
-})
-// click btn reports
-$("#btn-reports").addEventListener("click", () =>{
-    showElement("#reports")
-    hideElement("#balance-container")
-    hideElement("#categories")
-    hideElement("#new-operation-container")
-})
-
-
-// edit and delete category
-
-$("#add-editCategory-btn").addEventListener("click", () =>{
-    showElement("#modal-edited-category")
-    addBrightness("header")
-    addBrightness("main")
-    addBrightness("footer")
-})
-
-$("#category-edited-btn").addEventListener("click", () =>{
-    hideElement("#modal-edited-category")
-    showElement("#new-category-container")
-    hideElement("#edit-category-container")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
-})
-
-$("#cancel-editCategory-btn").addEventListener("click", () =>{
-    hideElement("#modal-edited-category")
-    showElement("#new-category-container")
-    hideElement("#edit-category-container")
-    removeBrightness("header")
-    removeBrightness("main")
-    removeBrightness("footer")
 })
 
 
@@ -143,13 +91,9 @@ const defaultCategoriesOptions = [
 const allOperations = getDataStorage("operations") || []
 const allCategories = getDataStorage("categories") || defaultCategoriesOptions
 
-if (!getDataStorage("operations")) {
-    setDataStorage("operations", [])
-}
-
 
 const renderOperations = (operations) => {
-    cleanContainer("#operationsTable")
+    cleanContainer("#operations-table")
     if (operations.length) {
         hideElement("#balance-no-results")
         showElement("#balance-results")
@@ -157,7 +101,7 @@ const renderOperations = (operations) => {
             const spentAmount = type === "Ganancia" ? "text-[#48c774]" : "text-[#f14668]"
             const gainAmount = type === "Ganancia" ? "+" : "-"
             const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === category)
-            $("#operationsTable").innerHTML += `
+            $("#operations-table").innerHTML += `
             <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
                 <td class="w-1/2 font-medium p-3 md:py-3 md:px-0 md:w-3/12 md:flex md:justify-start">${descriptionInput}</td>
                 <td class="flex justify-end w-1/2 text-xs p-3 text-[#00947e] md:w-3/12 md:justify-start md:py-3 md:px-0"><span class="bg-[#ebfffc] px-2 py-0.5 rounded">${categorySelected.type}</span></td>
@@ -177,24 +121,28 @@ const renderOperations = (operations) => {
 }
 
 
+
 //render categories options
 const renderCategoriesOptions = (categories) => {
-    cleanContainer("#categoriesSelect")
+    cleanContainer("#categories-select")
+    cleanContainer("#filter-category")
     for (const category of categories) {
-        $("#categoriesSelect").innerHTML += `
+        $("#categories-select").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+        $("#filter-category").innerHTML += `
         <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
     }
 }
 
 //save new operation data
 const saveOperationData = () => {
-    const typeValue = $("#typeOperation").value
-    const categoryId = $("#categoriesSelect").options[$("#categoriesSelect").selectedIndex].getAttribute("data-id")
+    const typeValue = $("#type-operation").value
+    const categoryId = $("#categories-select").options[$("#categories-select").selectedIndex].getAttribute("data-id")
     return {
         id: randomId(),
-        descriptionInput: $("#descriptionInput").value,
-        amountInput: $("#amountInput").value,
-        dateInput: $("#dateInput").value,
+        descriptionInput: $("#description-input").value,
+        amountInput: $("#amount-input").value,
+        dateInput: $("#date-input").value,
         type: typeValue,
         category: categoryId
     }
@@ -206,7 +154,6 @@ const addOperationForm = () => {
     const newOperation = saveOperationData()
     currentOperations.push(newOperation)
     setDataStorage("operations", currentOperations)
-    console.log(currentOperations)
     renderOperations(currentOperations)
 }
 
@@ -236,8 +183,6 @@ const deletedOperation = () => {
 }
 
 /*   ---------DELETED OPERATION---------------------DELETED OPERATION-------------------------    DELETED OPERATION  */
-//HIJODE PERRAAAAA
-
 
 //edit operation data array in local
 const editOperationForm = (id) => {
@@ -247,9 +192,9 @@ const editOperationForm = (id) => {
     showElement("#edit-operation-btn")
     $("#operation-edited-btn").setAttribute("data-id", id)
     const operationSelected = getDataStorage("operations").find(operation => operation.id === id)
-    $("#descriptionInput").value = operationSelected.descriptionInput
-    $("#amountInput").value = operationSelected.amountInput
-    $("#dateInput").value = operationSelected.dateInput
+    $("#description-input").value = operationSelected.descriptionInput
+    $("#amount-input").value = operationSelected.amountInput
+    $("#date-input").value = operationSelected.dateInput
 }
 
 //edited operation
@@ -271,13 +216,123 @@ const editedOperation = () => {
     renderOperations(editedOperations)
 }
 
+//category
+const renderCategoriesList = (categories) => {
+    cleanContainer("#category-list")
+    if (categories.length) {
+        for (const {id, type} of categories) {
+            $("#category-list").innerHTML += `
+            <li class="mb-8 flex justify-between"><span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">${type}</span>
+            <div>
+                <button class="mr-6" onclick="editCategory('${id}')"><i class="fa-solid fa-pencil"></i></button>
+                <button class="delete-category-btn" onclick="deleteCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+            </li>
+            `
+        }
+    }
+}
+
+
+
+//save new category
+const saveNewCategory = () => {
+    return {
+        id: randomId(),
+        type: $("#category-input").value
+    }
+}
+
+// add new category
+const addNewCategory = () => {
+    const currentCategory = getDataStorage("categories")
+    const newCategory = saveNewCategory()
+    currentCategory.push(newCategory)
+    setDataStorage("categories", currentCategory)
+    renderCategoriesList(currentCategory)
+    renderCategoriesOptions(currentCategory)
+}
+
+
+//delete category
+const deleteCategory = (id) => {
+    const deletedCategory = getDataStorage("categories").filter(category => category.id !== id)
+    setDataStorage("categories", deletedCategory)
+    renderCategoriesList(deletedCategory)
+    renderCategoriesOptions(deletedCategory)
+}
+
+
+//edit category
+//esta funcion hace lo mismo que saveNewCategory(), a mejorar y utilizar parametros y ternario para combinar
+const saveEditedCategory = (categoryId) => {
+    return {
+        id: categoryId,
+        type: $("#edit-category-input").value
+    }
+}
+
+
+const editCategory = (id) => {
+    hideElement("#new-category-container")
+    showElement("#edit-category-container")
+    const idCategorySelected = id
+    const editCategorySelected = getDataStorage("categories").find(category => category.id === idCategorySelected)
+    $("#edit-category-input").value = editCategorySelected.type
+    $("#add-editCategory-btn").setAttribute("data-id", id)
+}
+
+
+const editedCategory = (id) => {
+    const idCategorySelected = id
+    const editedCategory = getDataStorage("categories").map(category => {
+        if (category.id === idCategorySelected) {
+            return saveEditedCategory(idCategorySelected)
+        }
+        return category
+    })
+    setDataStorage("categories", editedCategory)
+    renderCategoriesOptions(editedCategory)
+    renderCategoriesList(editedCategory)
+}
+
+
+
+
+
+
 
 const initializeApp = () => {
     setDataStorage("operations", allOperations)
     setDataStorage("categories", allCategories)
     renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
+    renderCategoriesList(allCategories)
+    
 
+    // click btn balance
+    $("#btn-balance").addEventListener("click", () =>{
+        showElement("#balance-container")
+        hideElement("#categories")
+        hideElement("#reports")
+        hideElement("#new-operation-container")
+    })
+
+    // click btn categories
+    $("#btn-categories").addEventListener("click", () =>{
+        showElement("#categories")
+        hideElement("#balance-container")
+        hideElement("#reports")
+        hideElement("#new-operation-container")
+    })
+
+    // click btn reports
+    $("#btn-reports").addEventListener("click", () =>{
+        showElement("#reports")
+        hideElement("#balance-container")
+        hideElement("#categories")
+        hideElement("#new-operation-container")
+    })
 
     /* new operation */
     $("#new-operation-btn").addEventListener("click", () => {
@@ -297,13 +352,9 @@ const initializeApp = () => {
         removeBrightness("header")
         removeBrightness("main")
         removeBrightness("footer")
+        
         addOperationForm()
     })
-
-    //pencil edit categoy container
-/*     $(".pencil-edit-btn").addEventListener("click", () => {
-        $("#operation-title").innerHTML = "Editar operación"
-    }) */
 
 
     /* modal edited operation btn ok */
@@ -322,6 +373,33 @@ const initializeApp = () => {
         removeBrightness("main")
         removeBrightness("footer")
     })
+
+    //add category btn
+    $("#add-category-btn").addEventListener("click", () => {
+        addNewCategory()
+        $("#category-input").value = ""
+    })
+
+    //edit category btn
+    // $(".pencil-edit-category-btn").addEventListener("click", () => {
+    //     hideElement("#new-category-container")
+    //     showElement("#edit-category-container")
+    //     editCategory()
+    // })
+
+    //candel edit category
+    $("#cancel-editCategory-btn").addEventListener("click", () => {
+        showElement("#new-category-container")
+        hideElement("#edit-category-container")
+    })
+
+    //edited category ok
+    $("#add-editCategory-btn").addEventListener("click", () => {
+        showElement("#new-category-container")
+        hideElement("#edit-category-container")
+        editedCategory($("#add-editCategory-btn").getAttribute("data-id"))
+    })
+
 }
 
 window.addEventListener("load", initializeApp)

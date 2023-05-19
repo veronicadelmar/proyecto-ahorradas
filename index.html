@@ -81,17 +81,17 @@
                                 </div>
                                 <!-- category -->
                                 <div class="flex flex-col mb-3">
-                                    <label for="filterCategory" class="text-[#363636] mb-2 font-bold">Categoría</label>
+                                    <label for="filter-category" class="text-[#363636] mb-2 font-bold">Categoría</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select id="filterCategory" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer" name="filterCategory">
-                                            <option value="todas">Todas</option>
+                                        <select id="filter-category" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer" name="filter-category">
+<!--                                             <option value="todas">Todas</option>
                                             <option value="comida">Comida</option>
                                             <option value="servicios">Servicios</option>
                                             <option value="salidas">Salidas</option>
                                             <option value="educacion">Educación</option>
                                             <option value="transporte">Transporte</option>
-                                            <option value="trabajo">Trabajo</option>
+                                            <option value="trabajo">Trabajo</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                         <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="operationsTable">
+                                    <tbody id="operations-table">
                                         
                                     </tbody>
                                 </table>
@@ -164,29 +164,29 @@
                         <div class="h-full flex flex-col justify-evenly">
                             <h2 id="operation-title" class="text-[2rem] font-bold mb-6 lg:text-[2.5rem]"></h2>
                             <div class="flex flex-col mb-3">
-                                <label class="font-bold mb-2" for="descriptionInput">Descripción</label>
-                                <input id="descriptionInput" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="text">
+                                <label class="font-bold mb-2" for="description-input">Descripción</label>
+                                <input id="description-input" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="text">
                             </div>
                             <div class="flex flex-col mb-3">
-                                <label class="font-bold mb-2" for="amountInput">Monto</label>
-                                <input id="amountInput" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="number" value="0">
+                                <label class="font-bold mb-2" for="amount-input">Monto</label>
+                                <input id="amount-input" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="number" value="0">
                             </div>
                             <div class="flex flex-col mb-3">
-                                <label class="font-bold mb-2" for="typeOperation">Tipo</label>
-                                <select id="typeOperation" class="py-2 px-3">
+                                <label class="font-bold mb-2" for="type-operation">Tipo</label>
+                                <select id="type-operation" class="py-2 px-3">
                                     <option value="Gasto">Gasto</option>
                                     <option value="Ganancia">Ganancia</option>
                                   </select>
                             </div>
                             <div class="flex flex-col mb-3">
-                                <label class="font-bold mb-2" for="categoriesSelect">Categoría</label>
-                                <select class="categoriesSelect py-2 px-3" id="categoriesSelect">
+                                <label class="font-bold mb-2" for="categories-select">Categoría</label>
+                                <select class="categories-select py-2 px-3" id="categories-select">
                                     
                                 </select>
                             </div>
                             <div class="flex flex-col mb-3">
-                                <label class="font-bold mb-2" for="dateInput">Fecha</label>
-                                <input id="dateInput" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="date">
+                                <label class="font-bold mb-2" for="date-input">Fecha</label>
+                                <input id="date-input" class="py-2 px-3 text-[#363636] border border-[#dbdbdb] rounded" type="date">
                             </div>
                             <div class="flex justify-end mt-6 pb-2.5 pt-5">
                                 <button id="cancel-operation-btn" class="ml-3 mr-3 py-2 px-4 rounded cursor-pointer ">Cancelar</button>
@@ -204,60 +204,18 @@
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
                 <div class="flex mt-2 mb-6">
-                    <input type="text" class="border rounded border-gray-300 mr-3 w-full">
-                    <button class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
+                    <input id="category-input" type="text" class="border rounded border-gray-300 mr-3 w-full" autofocus>
+                    <button id="add-category-btn" class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
                 </div>
-                <!-- al momento de comenzar con la programación, este listado por defecto debe armarse en un array de objetos con cada categoria -->
-                <ul class="">
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Comida</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Servicios</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Salidas</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Educación</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Transporte</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
-                    <li class="mb-8 flex justify-between">
-                        <span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">Trabajo</span>
-                        <div>
-                            <button class="pencil-edit-category-btn mr-6"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </li>
+                <ul id="category-list">
+
                 </ul>
             </article>
             <!-- edit category container -->
             <article id="edit-category-container" class="hidden bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
                 <!-- edit category -->
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Editar Categoría</h2>
-                <input type="text" class="border rounded border-gray-300 mr-3 w-full h-10">
+                <input id="edit-category-input" type="text" class="border rounded border-gray-300 mr-3 w-full h-10" autofocus>
                 <div class="flex justify-end mt-6 pb-2.5 pt-5">
                     <button id="cancel-editCategory-btn" class="ml-3 mr-3 py-2 px-4 rounded cursor-pointer ">Cancelar</button>
                     <button id="add-editCategory-btn" class="py-2 px-4 bg-[#48c774] rounded cursor-pointer text-white">Editar</button>
@@ -267,8 +225,8 @@
         <!-- reports -->
         <section id="reports" class="hidden p-5 py-20 lg:px-40 xl:px-72">
             <article class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300">
-                <section class="p-6">
-                    <h2 class="font-bold text-4xl text-neutral-600 mb-10">Reportes</h2>
+                <h2 class="font-bold text-4xl text-neutral-600 mb-10">Reportes</h2>
+                <section class="p-6 insufficientOperations">
                     <figure class="max-w-[350px] m-auto">
                         <img src="./assets/chart.svg" alt="balance chart">
                     </figure>
@@ -276,10 +234,10 @@
                     <p class="text-lg text-center pb-4 xl:pb-20">Prueba agregando más opciones</p>
                 </section>
                 <!-- summary, totals by categories, totals by month -->
-                <section class="hidden p-6">
+                <section class="hidden p-6 summaryContainer">
                     <h3 class="font-semibold text-2xl pb-8">Resumen</h3>
                     <!-- table = summary -->
-                    <table class="w-full">
+                    <table class="w-full summary">
                         <tr class="flex flex-col text-left pb-4 sm:flex-row sm:justify-between">
                             <th class="mb-2 p-1 sm:w-1/2">Categoría con mayor ganancia</th>
                             <td class="mb-2 sm:flex sm:w-1/4 sm:justify-end">
