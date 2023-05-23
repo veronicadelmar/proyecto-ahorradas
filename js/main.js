@@ -25,10 +25,14 @@ $("#hide-filters").addEventListener("click", () => {
 /* modal operation check  */
 $("#add-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
-    showElement("#modal-new-operation-done")
-    addBrightness("header")
-    addBrightness("main")
-    addBrightness("footer")
+    if (validateNewOperation()) {
+        showElement("#modal-new-operation-done")
+        addBrightness("header")
+        addBrightness("main")
+        addBrightness("footer")
+        hideElement(".invalid-name-operation")
+        hideElement(".invalid-amount")
+    }
 })
 
 
@@ -37,6 +41,10 @@ $("#cancel-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
     hideElement("#new-operation-container")
     showElement("#balance-container")
+    if (!validateNewOperation()) {
+        hideElement(".invalid-name-operation")
+        hideElement(".invalid-amount")
+    }
 })
 
 
@@ -127,6 +135,30 @@ const renderOperations = (operations) => {
         showElement("#balance-no-results")
         hideElement("#balance-results")
     }
+}
+
+//validate new operation
+const validateNewOperation = () => {
+    const operationName = $("#description-input").value.trim()
+    const regAmount = new RegExp("^(0|[1-9]\\d*)(\\.\\d+)?$")
+    const amount = $("#amount-input").value
+
+    if (operationName == "") {
+        showElement(".invalid-name-operation")
+    } else {
+        hideElement(".invalid-name-operation")
+    }
+
+
+    if (!regAmount.test(amount) || amount == "0") {
+        showElement(".invalid-amount")
+    } else {
+        hideElement(".invalid-amount")
+    }
+
+    const validateOk = operationName !== "" && regAmount.test(amount) && amount !== "0"
+
+    return validateOk
 }
 
 
@@ -624,6 +656,16 @@ const initializeApp = () => {
         $("#form-operation").reset()
         $("#operation-title").innerHTML = "Nueva operación"
     })
+    
+
+    /* amount input check */
+    $("#amount-input").addEventListener("input", (e) => {
+        const amountValue = e.target.valueAsNumber
+        if (isNaN(amountValue)) {
+            $("#amount-input").value = ""
+        }
+    })
+
 
     /* modal operation added ok */
     $("#operation-added-btn").addEventListener("click", () => {
