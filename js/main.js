@@ -316,8 +316,8 @@ const editedCategory = (id) => {
 }
 
 
-// render summary
-const renderSummary = () =>{
+// render reports
+const renderReports = () =>{
     const currentOperations = getDataStorage("operations")
     const listCategories = getDataStorage("categories")
     if (currentOperations.length >= 2){
@@ -404,7 +404,6 @@ const higherExpenseCategory = (operations) => {
       }
     }
 
-
     $("#best-balance").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
     $("#balance-category").innerHTML = maxBalance
 }
@@ -435,7 +434,7 @@ const bestProfitMonths = (operations) => {
         let profit = 0
         for (const operation of operationsWithoutDays) {
             if (uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Ganancia") {
-                profit += parseInt(operation.amount)
+                profit += parseFloat(operation.amount)
             }
         }
         if (profit > bestProfit) {
@@ -472,7 +471,7 @@ const higherExpenseMonths = (operations) => {
         let expense = 0
         for (const operation of operationsWithoutDays) {
             if (uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Gasto") {
-                expense += parseInt(operation.amount)
+                expense += parseFloat(operation.amount)
             }
         }
         if (expense > higherExpense) {
@@ -484,7 +483,7 @@ const higherExpenseMonths = (operations) => {
     $("#higher-month-expense-amount").innerHTML = "-$"+ higherExpense
 }
 
-//total por categorias
+//totals by categories
 const renderReportsCategories = (operations, categories) => {
     const categoriesWithOperations = []
     for (const category of categories) {
@@ -534,7 +533,7 @@ const renderReportsCategories = (operations, categories) => {
     }
 }
 
-// total por mes
+// totals by month
 const totalsForMonths = (operations) => {
     let operationsWithoutDays = []
     let uniqueMonths = []
@@ -592,8 +591,6 @@ const totalsForMonths = (operations) => {
 }
 
 
-
-
 const initializeApp = () => {
     setDataStorage("operations", allOperations)
     setDataStorage("categories", allCategories)
@@ -620,8 +617,7 @@ const initializeApp = () => {
 
     // click btn reports
     $("#btn-reports").addEventListener("click", () =>{
-
-        renderSummary()
+        renderReports()
         showElement("#reports")
         hideElement("#balance-container")
         hideElement("#categories")
