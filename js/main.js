@@ -122,6 +122,7 @@ const renderOperations = (operations) => {
             </tr>
             `
         }
+        
     } else {
         showElement("#balance-no-results")
         hideElement("#balance-results")
@@ -308,11 +309,17 @@ const editedCategory = (id) => {
 // render summary
 const renderSummary = () =>{
     const currentOperations = getDataStorage("operations")
+    const listCategories = getDataStorage("categories")
     if (currentOperations.length >= 2){
         hideElement(".insufficientOperations")
         showElement(".summaryContainer")
         bestProfitCategory(currentOperations)
+        higherExpenseCategory(currentOperations)
+        bestBalance(currentOperations)
         bestProfitMonths(currentOperations)
+        higherExpenseMonths(currentOperations)
+        renderReportsCategories(currentOperations, listCategories)
+        totalsForMonths(currentOperations)
     } else {
         showElement(".insufficientOperations")
         hideElement(".summaryContainer")
@@ -339,46 +346,241 @@ const bestProfitCategory = (operations) => {
       }
     }
     $("#best-profit").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
-    $("#best-profit-amount").innerHTML = "+"+profitCategory
+    $("#best-profit-amount").innerHTML = "+$"+profitCategory
   }
+
+// higher expense category
+const higherExpenseCategory = (operations) => {
+    const categories = getDataStorage("categories")
+    let expenseCategory = 0
+    let categoryId = ""
+
+    for (const category of categories) {
+        const expense = operations.reduce((total, operation) => {
+          if (operation.category === category.id && operation.type === "Gasto") {
+            return total + parseFloat(operation.amountInput)
+          }
+          return total
+        }, 0)
+    
+        if (expense > expenseCategory) {
+            expenseCategory = expense
+            categoryId = category.id
+        }
+      }
+    $("#higher-expense").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
+    $("#higher-expense-category").innerHTML = "-$"+expenseCategory
+  }
+  
+  // best balance category
+  const bestBalance = (operations) => {
+    const categories = getDataStorage("categories")
+    let maxBalance = 0
+    let categoryId = ""
+    for (const category of categories) {
+        const balance = operations.reduce((total, operation) => {
+            if (operation.category === category.id && operation.type === "Ganancia") {
+                return total + parseFloat(operation.amountInput)
+            }
+            if (operation.category === category.id && operation.type === "Gasto") {
+                return total - parseFloat(operation.amountInput)
+            }  
+            return total
+        }, 0)
+
+    if (balance > maxBalance) {
+        maxBalance = balance
+        categoryId = category.id
+      }
+    }
+
+
+    $("#best-balance").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
+    $("#balance-category").innerHTML = maxBalance
+}
 
 
 // best profit months
-  const bestProfitMonths = (operations) => {
+const bestProfitMonths = (operations) => {
     let bestMonths = ""
     let bestProfit = 0
     let operationsWithoutDays = []
     let uniqueMonths = []
-    for(const operation of operations){
+    for (const operation of operations) {
         const dateInput = new Date(operation.dateInput)
-        let month = dateInput.getMonth()+1;
-        let year = dateInput.getFullYear();
-        const yearMonth = year+"/"+month 
-        if(!uniqueMonths.includes(yearMonth)){
+        let month = dateInput.getUTCMonth() + 1
+        let year = dateInput.getFullYear()
+        const yearMonth = year + "/" + month
+        if (!uniqueMonths.includes(yearMonth)) {
             uniqueMonths.push(yearMonth)
         }
         operationsWithoutDays.push({
             dateWithoutDays: yearMonth,
             amount: operation.amountInput,
-            type: operation.type 
+            type: operation.type
         })
     }
-   
-    for(let i=0; i < uniqueMonths.length; i++){
+
+    for (let i = 0; i < uniqueMonths.length; i++) {
         let profit = 0
-        for(const operation of operationsWithoutDays){
-            if(uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Ganancia"){
+        for (const operation of operationsWithoutDays) {
+            if (uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Ganancia") {
                 profit += parseInt(operation.amount)
             }
         }
-        if(profit > bestProfit){
+        if (profit > bestProfit) {
             bestProfit = profit
             bestMonths = uniqueMonths[i]
         }
     }
     $("#best-month-profit").innerHTML = bestMonths
-    $("#best-month-profit-amount").innerHTML = "+"+bestProfit
-  };
+    $("#best-month-profit-amount").innerHTML = "+$"+bestProfit
+}
+
+// higher expense months
+const higherExpenseMonths = (operations) => {
+    let higherMonths = ""
+    let higherExpense = 0
+    let operationsWithoutDays = []
+    let uniqueMonths = []
+    for (const operation of operations) {
+        const dateInput = new Date(operation.dateInput)
+        let month = dateInput.getUTCMonth() + 1
+        let year = dateInput.getFullYear()
+        const yearMonth = year + "/" + month
+        if (!uniqueMonths.includes(yearMonth)) {
+            uniqueMonths.push(yearMonth)
+        }
+        operationsWithoutDays.push({
+            dateWithoutDays: yearMonth,
+            amount: operation.amountInput,
+            type: operation.type
+        })
+    }
+
+    for (let i = 0; i < uniqueMonths.length; i++) {
+        let expense = 0
+        for (const operation of operationsWithoutDays) {
+            if (uniqueMonths[i] === operation.dateWithoutDays && operation.type === "Gasto") {
+                expense += parseInt(operation.amount)
+            }
+        }
+        if (expense > higherExpense) {
+            higherExpense = expense
+            higherMonths = uniqueMonths[i]
+        }
+    }
+    $("#higher-month-expense").innerHTML = higherMonths
+    $("#higher-month-expense-amount").innerHTML = "-$"+ higherExpense
+}
+
+//total por categorias
+const renderReportsCategories = (operations, categories) => {
+    const categoriesWithOperations = []
+    for (const category of categories) {
+        let profit = 0
+        let expense = 0
+        let balance = 0
+        
+        for(const operation of operations){
+            if(category.id === operation.category){
+                if(operation.type === "Ganancia"){
+                    profit += parseFloat(operation.amountInput)
+                    balance += parseFloat(operation.amountInput)
+                }
+                if(operation.type === "Gasto"){
+                    expense += parseFloat(operation.amountInput)
+                    balance -= parseFloat(operation.amountInput)
+                }
+            }
+        }
+        if(profit > 0 || expense >0){
+            categoriesWithOperations.push({
+                name: category.type,
+                profit: profit,
+                expense: expense,
+                balance: balance
+            })
+        }
+    }
+    cleanContainer("#totalsByCategories")
+    $("#totalsByCategories").innerHTML += `
+    <tr class="hidden sm:flex sm:text-left sm:justify-between">
+        <th class="mb-2 p-1 w-1/4">Categoria</th>
+        <th class="mb-2 p-1 w-1/4">Ganancia</th>
+        <th class="mb-2 p-1 w-1/4">Gastos</th>
+        <th class="mb-2 p-1 w-1/4">Balance</th>
+    </tr>
+        `
+    for (const {name, profit, expense, balance} of categoriesWithOperations){
+        $("#totalsByCategories").innerHTML += `
+        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+            <th class="mb-2 w-1/4">${name}</th>
+            <td class="text-[#48c774] font-semibold mb-2 w-1/4">$${profit}</td>
+            <td class="text-[#f14668] font-semibold mb-2 w-1/4">$${expense}</td>
+            <td class="font-semibold mb-2 w-1/4">$${balance}</td>
+        </tr>
+        `
+    }
+}
+
+// total por mes
+const totalsForMonths = (operations) => {
+    let operationsWithoutDays = []
+    let uniqueMonths = []
+    for (const operation of operations) {
+        const dateInput = new Date(operation.dateInput)
+        let month = dateInput.getUTCMonth() + 1
+        let year = dateInput.getFullYear()
+        const yearMonth = year + "/" + month
+        if (!uniqueMonths.includes(yearMonth)) {
+            uniqueMonths.push(yearMonth)
+        }
+        operationsWithoutDays.push({
+            dateWithoutDays: yearMonth,
+            amount: operation.amountInput,
+            type: operation.type
+        })
+    }
+
+    cleanContainer("#totalsByMonth")
+    $("#totalsByMonth").innerHTML += `
+    <tr class="hidden sm:flex sm:text-left sm:justify-between">
+         <th class="mb-2 p-1 w-1/4">Mes</th>
+         <th class="mb-2 p-1 w-1/4">Ganancia</th>
+         <th class="mb-2 p-1 w-1/4">Gastos</th>
+         <th class="mb-2 p-1 w-1/4">Balance</th>
+    </tr> `
+
+
+    for (let i = 0; i < uniqueMonths.length; i++) {
+        let name = uniqueMonths[i]
+        let profit = 0
+        let expense = 0
+        let balance = 0
+        for(const operation of operationsWithoutDays){
+            if(name === operation.dateWithoutDays){
+                if(operation.type === "Ganancia"){
+                    profit += parseFloat(operation.amount)
+                    balance += parseFloat(operation.amount)
+                }
+                if(operation.type === "Gasto"){
+                    expense += parseFloat(operation.amount)
+                    balance -= parseFloat(operation.amount)
+                }
+            }
+        }
+        $("#totalsByMonth").innerHTML += `
+        <tr class="flex flex-col text-center mb-5 sm:flex-row sm:text-left sm:justify-between sm:mb-2">
+             <th class="mb-2 w-1/4">${name}</th>
+             <td class="text-[#48c774] font-semibold mb-2 w-1/4">$${profit}</td>
+             <td class="text-[#f14668] font-semibold mb-2 w-1/4">$${expense}</td>
+             <td class="font-semibold mb-2 w-1/4">$${balance}</td>
+        </tr>`
+    }
+   
+}
+
 
 
 
@@ -388,7 +590,6 @@ const initializeApp = () => {
     renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
     renderCategoriesList(allCategories)
-    console.log(allOperations)
     
 
     // click btn balance
