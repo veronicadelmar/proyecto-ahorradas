@@ -249,7 +249,7 @@ const renderCategoriesList = (categories) => {
             <li class="mb-8 flex justify-between"><span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">${type}</span>
             <div>
                 <button class="mr-6" onclick="editCategory('${id}')"><i class="fa-solid fa-pencil"></i></button>
-                <button  onclick="deleteCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+                <button  onclick="modalDeteleCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
             </div>
             </li>`
         }
