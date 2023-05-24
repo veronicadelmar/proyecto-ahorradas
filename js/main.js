@@ -249,7 +249,7 @@ const renderCategoriesList = (categories) => {
             <li class="mb-8 flex justify-between"><span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">${type}</span>
             <div>
                 <button class="mr-6" onclick="editCategory('${id}')"><i class="fa-solid fa-pencil"></i></button>
-                <button class="delete-category-btn" onclick="deleteCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+                <button  onclick="deleteCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
             </div>
             </li>`
         }
@@ -298,9 +298,22 @@ const editedCategory = (id) => {
     renderCategoriesList(editedCategory)
 }
 
+//modal delete category
+const modalDeteleCategory = (id) => {
+    $("#delete-category-current").setAttribute("data-id", id)
+    const categorySelected = getDataStorage("categories").find(category => category.id === id)
+    $("#modal-category-name").innerHTML = categorySelected.type
+    showElement("#modal-delete-category")
+    addBrightness("header")
+    addBrightness("main")
+    addBrightness("footer")
+}
+
+
 //delete category
-const deleteCategory = (id) => {
-    const deletedCategory = getDataStorage("categories").filter(category => category.id !== id)
+const deleteCategory = () => {
+    const categoryId = $("#delete-category-current").getAttribute("data-id")
+    const deletedCategory = getDataStorage("categories").filter(category => category.id !== categoryId)
     setDataStorage("categories", deletedCategory)
     renderCategoriesList(deletedCategory)
     renderCategoriesOptions(deletedCategory)
@@ -673,6 +686,23 @@ const initializeApp = () => {
         showElement("#new-category-container")
         hideElement("#edit-category-container")
         editedCategory($("#add-editCategory-btn").getAttribute("data-id"))
+    })
+
+    //no delete category
+    $("#no-delete-category-current").addEventListener("click", () => {
+        hideElement("#modal-delete-category")
+        removeBrightness("header")
+        removeBrightness("main")
+        removeBrightness("footer")
+    })
+
+    //delete category ok
+    $("#delete-category-current").addEventListener("click", () => {
+        hideElement("#modal-delete-category")
+        removeBrightness("header")
+        removeBrightness("main")
+        removeBrightness("footer")
+        deleteCategory()
     })
 }
 
