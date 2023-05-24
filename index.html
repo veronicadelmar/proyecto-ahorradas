@@ -328,20 +328,6 @@
             </div>
         </div>
     </div>
-    <!-- modal window edit category -->
-    <div id="modal-edited-category" class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
-            <div class="h-full flex flex-col justify-evenly">
-                <div class="flex items-center justify-center">
-                    <img src="./assets//edit-animated.gif" alt="animated checked icon" class="w-[20%]">
-                </div>
-                <p class="text-[1.3rem] text-center mx-10">Categoría editada exitosamente</p>
-                <div class="flex justify-center pb-2.5 pt-5">
-                    <button id="category-edited-btn" class="ml-3 mr-3 py-2 px-8 bg-[#48c774] rounded cursor-pointer text-white">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- modal window delete category -->
     <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-delete-category">
         <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
@@ -349,7 +335,7 @@
                 <div class="flex items-center justify-center">
                     <img src="./assets/bin-animated.gif" alt="trash animated icon" class="w-[20%]">
                 </div>
-                <p class="text-[1.3rem] text-center mx-10">¿Desea eliminar la categoría <span class="font-bold">XXXX</span>?</p>
+                <p class="text-[1.3rem] text-center mx-10">¿Desea eliminar la categoría <span class="font-bold" id="modal-category-name"></span>?</p>
                 <div class="flex justify-center pb-2.5 pt-5">
                     <button id="delete-category-current" class="py-2 px-8 bg-[#48c774] rounded cursor-pointer"><i class="fa-solid fa-check text-white"></i></button>
                     <button id="no-delete-category-current" class="ml-3 mr-3 py-2 px-8 bg-[#f14668] rounded cursor-pointer"><i class="fa-solid fa-xmark text-white"></i></button>

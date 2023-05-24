@@ -1,4 +1,4 @@
-/*  selector */
+/* selector */
 const $ = (selector) => document.querySelector(selector)
 
 /* adding and removing class elements */
@@ -9,7 +9,7 @@ const showElement = (selector) => $(selector).classList.remove("hidden")
 const addBrightness = (selector) => $(selector).style.filter = ("brightness(0.5)")
 const removeBrightness = (selector) => $(selector).style.filter = ("brightness()")
 
-//MENU HAMBURGUESA 
+// hamburguer menu 
 $("#hamburger-menu").addEventListener("click", () => {
     if (!$("#hamburger-menu").classList.contains("hidden")) {
         $(".nav-ul").classList.toggle("hidden")
@@ -20,7 +20,6 @@ $("#hamburger-menu").addEventListener("click", () => {
 $("#hide-filters").addEventListener("click", () => {
     $("#toggle-filters").classList.toggle("hidden")
 })
-
 
 /* modal operation check  */
 $("#add-operation-btn").addEventListener("click", (e) => {
@@ -35,7 +34,6 @@ $("#add-operation-btn").addEventListener("click", (e) => {
     }
 })
 
-
 /* btn back to balance */
 $("#cancel-operation-btn").addEventListener("click", (e) => {
     e.preventDefault()
@@ -47,9 +45,7 @@ $("#cancel-operation-btn").addEventListener("click", (e) => {
     }
 })
 
-
-
- //    ------------ edit container buttons
+//    ------------ edit container buttons
 
 /* edit operation */
 $("#edit-operation-btn").addEventListener("click", (e) => {
@@ -59,10 +55,6 @@ $("#edit-operation-btn").addEventListener("click", (e) => {
     addBrightness("main")
     addBrightness("footer")
 })
-
-
-
-/// JS PURO INICIO
 
 //random id generator
 const randomId = () => self.crypto.randomUUID()
@@ -74,8 +66,7 @@ const setDataStorage = (key, array) => localStorage.setItem(key, JSON.stringify(
 //cleanContainer
 const cleanContainer = (selector) => $(selector).innerHTML = ""
 
-
-//default categories options SELECT
+//default categories options select
 const defaultCategoriesOptions = [
     {
         id: randomId(),
@@ -103,10 +94,8 @@ const defaultCategoriesOptions = [
     }
 ]
 
-
 const allOperations = getDataStorage("operations") || []
 const allCategories = getDataStorage("categories") || defaultCategoriesOptions
-
 
 const renderOperations = (operations) => {
     cleanContainer("#operations-table")
@@ -149,7 +138,6 @@ const validateNewOperation = () => {
         hideElement(".invalid-name-operation")
     }
 
-
     if (!regAmount.test(amount) || amount == "0") {
         showElement(".invalid-amount")
     } else {
@@ -157,11 +145,8 @@ const validateNewOperation = () => {
     }
 
     const validateOk = operationName !== "" && regAmount.test(amount) && amount !== "0"
-
     return validateOk
 }
-
-
 
 //render categories options
 const renderCategoriesOptions = (categories) => {
@@ -223,8 +208,6 @@ const deletedOperation = () => {
     renderOperations(currentOperations)
 }
 
-/*   ---------DELETED OPERATION---------------------DELETED OPERATION-------------------------    DELETED OPERATION  */
-
 //edit operation data array in local
 const editOperationForm = (id) => {
     showElement("#new-operation-container")
@@ -257,7 +240,7 @@ const editedOperation = () => {
     renderOperations(editedOperations)
 }
 
-//category
+// Category
 const renderCategoriesList = (categories) => {
     cleanContainer("#category-list")
     if (categories.length) {
@@ -268,21 +251,21 @@ const renderCategoriesList = (categories) => {
                 <button class="mr-6" onclick="editCategory('${id}')"><i class="fa-solid fa-pencil"></i></button>
                 <button class="delete-category-btn" onclick="deleteCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
             </div>
-            </li>
-            `
+            </li>`
         }
     }
 }
 
-
-
-//save new category
-const saveNewCategory = () => {
+// save category , for new category and edit category
+const saveCategory = (categoryId) => {
+    const inputField = (categoryId ? "#edit-category-input" : "#category-input")
+    const type = $(inputField).value
     return {
-        id: randomId(),
-        type: $("#category-input").value
+      id: (categoryId ? categoryId : randomId()),
+      type: type
     }
-}
+  }
+  
 
 // add new category
 const addNewCategory = () => {
@@ -294,8 +277,7 @@ const addNewCategory = () => {
     renderCategoriesOptions(currentCategory)
 }
 
-
-//delete category
+// delete category
 const deleteCategory = (id) => {
     const deletedCategory = getDataStorage("categories").filter(category => category.id !== id)
     setDataStorage("categories", deletedCategory)
@@ -303,17 +285,7 @@ const deleteCategory = (id) => {
     renderCategoriesOptions(deletedCategory)
 }
 
-
-//edit category
-//esta funcion hace lo mismo que saveNewCategory(), a mejorar y utilizar parametros y ternario para combinar
-const saveEditedCategory = (categoryId) => {
-    return {
-        id: categoryId,
-        type: $("#edit-category-input").value
-    }
-}
-
-
+// edit category
 const editCategory = (id) => {
     hideElement("#new-category-container")
     showElement("#edit-category-container")
@@ -322,7 +294,6 @@ const editCategory = (id) => {
     $("#edit-category-input").value = editCategorySelected.type
     $("#add-editCategory-btn").setAttribute("data-id", id)
 }
-
 
 const editedCategory = (id) => {
     const idCategorySelected = id
@@ -337,8 +308,7 @@ const editedCategory = (id) => {
     renderCategoriesList(editedCategory)
 }
 
-
-// render reports
+// Reports
 const renderReports = () =>{
     const currentOperations = getDataStorage("operations")
     const listCategories = getDataStorage("categories")
@@ -404,8 +374,8 @@ const higherExpenseCategory = (operations) => {
     $("#higher-expense-category").innerHTML = "-$"+expenseCategory
   }
   
-  // best balance category
-  const bestBalance = (operations) => {
+// best balance category
+const bestBalance = (operations) => {
     const categories = getDataStorage("categories")
     let maxBalance = 0
     let categoryId = ""
@@ -666,7 +636,6 @@ const initializeApp = () => {
         }
     })
 
-
     /* modal operation added ok */
     $("#operation-added-btn").addEventListener("click", () => {
         hideElement("#new-operation-container")
@@ -674,18 +643,15 @@ const initializeApp = () => {
         hideElement("#modal-new-operation-done")
         removeBrightness("header")
         removeBrightness("main")
-        removeBrightness("footer")
-        
+        removeBrightness("footer")        
         addOperationForm()
     })
-
 
     /* modal edited operation btn ok */
     $("#operation-edited-btn").addEventListener("click", () => {
         editedOperation()
     })
     
-
     /* modal deleted operation btn ok*/
     $("#deleted-operation").addEventListener("click", deletedOperation)
 
