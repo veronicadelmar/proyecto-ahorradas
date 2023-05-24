@@ -240,7 +240,7 @@ const editedOperation = () => {
     renderOperations(editedOperations)
 }
 
-// Category
+//Category
 const renderCategoriesList = (categories) => {
     cleanContainer("#category-list")
     if (categories.length) {
@@ -256,7 +256,7 @@ const renderCategoriesList = (categories) => {
     }
 }
 
-// save category , for new category and edit category
+// save category , for add new category and edit category
 const saveCategory = (categoryId) => {
     const inputField = (categoryId ? "#edit-category-input" : "#category-input")
     const type = $(inputField).value
@@ -266,26 +266,16 @@ const saveCategory = (categoryId) => {
     }
   }
   
-
 // add new category
 const addNewCategory = () => {
     const currentCategory = getDataStorage("categories")
-    const newCategory = saveNewCategory()
+    const newCategory = saveCategory()
     currentCategory.push(newCategory)
     setDataStorage("categories", currentCategory)
     renderCategoriesList(currentCategory)
     renderCategoriesOptions(currentCategory)
 }
 
-// delete category
-const deleteCategory = (id) => {
-    const deletedCategory = getDataStorage("categories").filter(category => category.id !== id)
-    setDataStorage("categories", deletedCategory)
-    renderCategoriesList(deletedCategory)
-    renderCategoriesOptions(deletedCategory)
-}
-
-// edit category
 const editCategory = (id) => {
     hideElement("#new-category-container")
     showElement("#edit-category-container")
@@ -299,7 +289,7 @@ const editedCategory = (id) => {
     const idCategorySelected = id
     const editedCategory = getDataStorage("categories").map(category => {
         if (category.id === idCategorySelected) {
-            return saveEditedCategory(idCategorySelected)
+            return saveCategory(idCategorySelected)
         }
         return category
     })
@@ -308,7 +298,15 @@ const editedCategory = (id) => {
     renderCategoriesList(editedCategory)
 }
 
-// Reports
+//delete category
+const deleteCategory = (id) => {
+    const deletedCategory = getDataStorage("categories").filter(category => category.id !== id)
+    setDataStorage("categories", deletedCategory)
+    renderCategoriesList(deletedCategory)
+    renderCategoriesOptions(deletedCategory)
+}
+
+//Reports
 const renderReports = () =>{
     const currentOperations = getDataStorage("operations")
     const listCategories = getDataStorage("categories")
@@ -395,7 +393,6 @@ const bestBalance = (operations) => {
         categoryId = category.id
       }
     }
-
     $("#best-balance").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
     $("#balance-category").innerHTML = maxBalance
 }
@@ -520,8 +517,7 @@ const renderReportsCategories = (operations, categories) => {
             <td class="text-[#48c774] font-semibold mb-2 w-1/4">$${profit}</td>
             <td class="text-[#f14668] font-semibold mb-2 w-1/4">$${expense}</td>
             <td class="font-semibold mb-2 w-1/4">$${balance}</td>
-        </tr>
-        `
+        </tr>`
     }
 }
 
@@ -578,8 +574,7 @@ const totalsForMonths = (operations) => {
              <td class="text-[#f14668] font-semibold mb-2 w-1/4">$${expense}</td>
              <td class="font-semibold mb-2 w-1/4">$${balance}</td>
         </tr>`
-    }
-   
+    } 
 }
 
 
@@ -589,7 +584,6 @@ const initializeApp = () => {
     renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
     renderCategoriesList(allCategories)
-    
 
     // click btn balance
     $("#btn-balance").addEventListener("click", () =>{
@@ -626,7 +620,6 @@ const initializeApp = () => {
         $("#form-operation").reset()
         $("#operation-title").innerHTML = "Nueva operación"
     })
-    
 
     /* amount input check */
     $("#amount-input").addEventListener("input", (e) => {
@@ -643,7 +636,7 @@ const initializeApp = () => {
         hideElement("#modal-new-operation-done")
         removeBrightness("header")
         removeBrightness("main")
-        removeBrightness("footer")        
+        removeBrightness("footer")
         addOperationForm()
     })
 
@@ -651,7 +644,7 @@ const initializeApp = () => {
     $("#operation-edited-btn").addEventListener("click", () => {
         editedOperation()
     })
-    
+
     /* modal deleted operation btn ok*/
     $("#deleted-operation").addEventListener("click", deletedOperation)
 
@@ -681,7 +674,6 @@ const initializeApp = () => {
         hideElement("#edit-category-container")
         editedCategory($("#add-editCategory-btn").getAttribute("data-id"))
     })
-
 }
 
 window.addEventListener("load", initializeApp)
