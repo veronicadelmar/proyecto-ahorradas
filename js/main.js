@@ -148,6 +148,26 @@ const validateNewOperation = () => {
     return validateOk
 }
 
+const currentDate = () => {
+    const currentDate = new Date()
+    let dayDate = currentDate.getDate()
+    let monthDate = currentDate.getMonth() + 1
+
+    if (monthDate < 10) {
+        monthDate = `0${monthDate}`
+    }
+
+    if (dayDate < 10) {
+        dayDate = `+${dayDate}` 
+    }
+    
+    const yearDate = currentDate.getFullYear()
+    const toDay = `${yearDate}-${monthDate}-${dayDate}`
+    return toDay
+}
+
+
+
 //render categories options
 const renderCategoriesOptions = (categories) => {
     cleanContainer("#categories-select")
@@ -632,6 +652,7 @@ const initializeApp = () => {
         showElement("#new-operation-container")
         $("#form-operation").reset()
         $("#operation-title").innerHTML = "Nueva operación"
+        $("#date-input").value = currentDate()
     })
 
     /* amount input check */
