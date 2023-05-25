@@ -69,10 +69,10 @@
                             <div id="toggle-filters" >
                                 <!-- type -->
                                 <div class="flex flex-col mb-3">
-                                    <label for="filterType" class="text-[#363636] mb-2 font-bold">Tipo</label>
+                                    <label for="filter-type" class="text-[#363636] mb-2 font-bold">Tipo</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select name="filterType" id="filterType" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
+                                        <select name="filter-type" id="filter-type" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
                                             <option value="Todos">Todos</option>
                                             <option value="Gasto">Gasto</option>
                                             <option value="Ganancia">Ganancia</option>
@@ -96,10 +96,10 @@
                                 </div>
                                 <!-- sort by -->
                                 <div class="flex flex-col">
-                                    <label for="filterOrder" class="text-[#363636] mb-2 font-bold">Ordenar por</label>
+                                    <label for="filter-order" class="text-[#363636] mb-2 font-bold">Ordenar por</label>
                                     <div class="flex items-center relative">
                                         <i class="fa-solid fa-chevron-down absolute text-base right-0 pr-2.5 text-[#3273dc]"></i>
-                                        <select name="filterOrder" id="filterOrder" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
+                                        <select name="filter-order" id="filter-order" class="w-full py-1.5 pr-10 pl-2.5 rounded border border-[#dbdbdb] appearance-none cursor-pointer">
                                             <option value="mas-recientes">Más reciente</option>
                                             <option value="menos-recientes">Menos reciente</option>
                                             <option value="mayor-monto">Mayor monto</option>
@@ -132,8 +132,7 @@
                                         <th class="md:w-2/12 md:flex md:justify-end md:py-3 md:font-medium">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="operations-table">
-                                        
+                                    <tbody id="operations-table">  
                                     </tbody>
                                 </table>
                             </div>
@@ -205,7 +204,6 @@
                     <button id="add-category-btn" class="bg-[#17c21a] text-[#fff] p-2 rounded font-medium">Agregar</button>
                 </div>
                 <ul id="category-list">
-
                 </ul>
             </article>
             <!-- edit category container -->
@@ -267,19 +265,13 @@
                             <td class="p-1 text-[#f14668] font-semibold sm:flex sm:w-1/4 sm:justify-end" id="higher-month-expense-amount"></td>
                         </tr>
                     </table>
-
-
                     <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por categorías</h3>
                     <!-- table = totals by categories -->
                     <table class="w-full" id="totalsByCategories">
-    
                     </table>
-
-
                     <h3 class="font-semibold text-2xl pb-8 pt-20">Totales por mes</h3>
                     <!-- table = totals by month -->
                     <table class="w-full" id="totalsByMonth">
-                       
                     </table>
                 </section>
             </article>
