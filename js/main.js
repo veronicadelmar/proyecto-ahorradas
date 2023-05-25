@@ -148,36 +148,23 @@ const validateNewOperation = () => {
     return validateOk
 }
 
-const currentDate = () => {
+//get date 
+const getFullDate = (date) => {
     const currentDate = new Date()
-    let dayDate = currentDate.getDate()
-    let monthDate = currentDate.getMonth() + 1
-
-    if (monthDate < 10) {
-        monthDate = `0${monthDate}`
-    }
-
-    if (dayDate < 10) {
-        dayDate = `+${dayDate}` 
-    }
-    
+    let dayDate = String(currentDate.getDate()).padStart(2, '0')
+    let monthDate = String(currentDate.getMonth() + 1).padStart(2, '0')
     const yearDate = currentDate.getFullYear()
-    const toDay = `${yearDate}-${monthDate}-${dayDate}`
-    return toDay
+
+    return date(yearDate, monthDate, dayDate)
 }
 
+//input date new operation: current day
+const currentDate = (year, month, day) => `${year}-${month}-${day}`
 
-
-//render categories options
-const renderCategoriesOptions = (categories) => {
-    cleanContainer("#categories-select")
-    cleanContainer("#filter-category")
-    for (const category of categories) {
-        $("#categories-select").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-        $("#filter-category").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-    }
+//input date: filter balance 
+const firstDayMonth = (year, month) => {
+    const firstDay = "01"
+    return `${year}-${month}-${firstDay}`
 }
 
 //save new operation data
@@ -193,6 +180,7 @@ const saveOperationData = () => {
         category: categoryId
     }
 }
+
 
 //add new operation data array in local
 const addOperationForm = () => {
@@ -273,6 +261,18 @@ const renderCategoriesList = (categories) => {
             </div>
             </li>`
         }
+    }
+}
+
+//render categories options
+const renderCategoriesOptions = (categories) => {
+    cleanContainer("#categories-select")
+    cleanContainer("#filter-category")
+    for (const category of categories) {
+        $("#categories-select").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+        $("#filter-category").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
     }
 }
 
@@ -618,6 +618,8 @@ const initializeApp = () => {
     renderCategoriesOptions(allCategories)
     renderCategoriesList(allCategories)
 
+    $("#filter-date").value = getFullDate(firstDayMonth)
+
     // click btn balance
     $("#btn-balance").addEventListener("click", () =>{
         showElement("#balance-container")
@@ -652,7 +654,7 @@ const initializeApp = () => {
         showElement("#new-operation-container")
         $("#form-operation").reset()
         $("#operation-title").innerHTML = "Nueva operación"
-        $("#date-input").value = currentDate()
+        $("#date-input").value = getFullDate(currentDate)
     })
 
     /* amount input check */
