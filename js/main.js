@@ -98,11 +98,47 @@ const allOperations = getDataStorage("operations") || []
 const allCategories = getDataStorage("categories") || defaultCategoriesOptions
 
 const renderOperations = (operations) => {
+    //filtered operations
+    const filteredOperations = []
+    const typeSelected = $("#filter-type").value
+    const categorySelectedForm = $("#filter-category").value
+    const date = $("#filter-date").value
+    const order = $("#filter-order").value
+
+    // filters type, category and date
+    for (const operation of operations){
+        const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === operation.category)
+        if((typeSelected === "Todos" || typeSelected === operation.type) && (categorySelectedForm === "Todas" || categorySelectedForm === categorySelected.type) && (date <= operation.dateInput)){
+            filteredOperations.push(operation)
+        }
+    }
+
+    let sortedOperations = []
+    switch (order) {
+        case 'mas-recientes':
+            sortedOperations = filteredOperations.sort((a, b) => a.dateInput.localeCompare(b.dateInput))
+            break 
+        case 'menos-recientes':
+            sortedOperations = filteredOperations.sort((a, b) => b.dateInput.localeCompare(a.dateInput))
+            break
+        case 'mayor-monto':
+            sortedOperations = filteredOperations.sort((a, b) => a.amountInput + b.amountInput)
+            break
+        case 'menor-monto':
+            sortedOperations = filteredOperations.sort((a, b) => a.amountInput - b.amountInput)
+             break
+        case 'a/z':
+            sortedOperations = filteredOperations.sort((a, b) => a.descriptionInput.localeCompare(b.descriptionInput))
+            break
+        case 'z/a':
+            sortedOperations = filteredOperations.sort((a, b) => b.descriptionInput.localeCompare(a.descriptionInput))
+            break
+    }
     cleanContainer("#operations-table")
-    if (operations.length) {
+    if (sortedOperations.length) {
         hideElement("#balance-no-results")
         showElement("#balance-results")
-        for (const { id, descriptionInput, category, amountInput, dateInput, type } of operations) {
+        for (const { id, descriptionInput, category, amountInput, dateInput, type } of sortedOperations) {
             const spentAmount = type === "Ganancia" ? "text-[#48c774]" : "text-[#f14668]"
             const gainAmount = type === "Ganancia" ? "+" : "-"
             const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === category)
@@ -119,7 +155,6 @@ const renderOperations = (operations) => {
             </tr>
             `
         }
-        
     } else {
         showElement("#balance-no-results")
         hideElement("#balance-results")
@@ -167,6 +202,21 @@ const firstDayMonth = (year, month) => {
     return `${year}-${month}-${firstDay}`
 }
 
+//render categories options
+const renderCategoriesOptions = (categories) => {
+    cleanContainer("#categories-select")
+    cleanContainer("#filter-category")
+    //adding category "Todas" to lists
+    $("#filter-category").innerHTML += `
+        <option value="Todas">Todas</option>`
+    for (const category of categories) {
+        $("#categories-select").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+        $("#filter-category").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+    }
+}
+
 //save new operation data
 const saveOperationData = () => {
     const typeValue = $("#type-operation").value
@@ -180,7 +230,6 @@ const saveOperationData = () => {
         category: categoryId
     }
 }
-
 
 //add new operation data array in local
 const addOperationForm = () => {
@@ -264,18 +313,6 @@ const renderCategoriesList = (categories) => {
     }
 }
 
-//render categories options
-const renderCategoriesOptions = (categories) => {
-    cleanContainer("#categories-select")
-    cleanContainer("#filter-category")
-    for (const category of categories) {
-        $("#categories-select").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-        $("#filter-category").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-    }
-}
-
 // save category , for add new category and edit category
 const saveCategory = (categoryId) => {
     const inputField = (categoryId ? "#edit-category-input" : "#category-input")
@@ -328,7 +365,6 @@ const modalDeteleCategory = (id) => {
     addBrightness("main")
     addBrightness("footer")
 }
-
 
 //delete category
 const deleteCategory = () => {
@@ -429,7 +465,6 @@ const bestBalance = (operations) => {
     $("#best-balance").innerHTML = categories.find((category) => category.id === categoryId)?.type || ""
     $("#balance-category").innerHTML = maxBalance
 }
-
 
 // best profit months
 const bestProfitMonths = (operations) => {
@@ -582,7 +617,6 @@ const totalsForMonths = (operations) => {
          <th class="mb-2 p-1 w-1/4">Balance</th>
     </tr> `
 
-
     for (let i = 0; i < uniqueMonths.length; i++) {
         let name = uniqueMonths[i]
         let profit = 0
@@ -609,7 +643,6 @@ const totalsForMonths = (operations) => {
         </tr>`
     } 
 }
-
 
 const initializeApp = () => {
     setDataStorage("operations", allOperations)
@@ -643,7 +676,6 @@ const initializeApp = () => {
         hideElement("#balance-container")
         hideElement("#categories")
         hideElement("#new-operation-container")
-
     })
 
     /* new operation */
@@ -663,6 +695,12 @@ const initializeApp = () => {
         if (isNaN(amountValue)) {
             $("#amount-input").value = ""
         }
+    })
+
+    // filters
+    $("#filters-container").addEventListener("change", () => {
+        const currentOperations = getDataStorage("operations")
+        renderOperations(currentOperations)
     })
 
     /* modal operation added ok */
