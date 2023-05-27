@@ -9,6 +9,9 @@ const showElement = (selector) => $(selector).classList.remove("hidden")
 const addBrightness = (selector) => $(selector).style.filter = ("brightness(0.5)")
 const removeBrightness = (selector) => $(selector).style.filter = ("brightness()")
 
+//apply autofocus
+const setFocus = (selector) => $(selector).focus()
+
 // hamburguer menu 
 $("#hamburger-menu").addEventListener("click", () => {
     if (!$("#hamburger-menu").classList.contains("hidden")) {
@@ -104,11 +107,12 @@ const renderOperations = (operations) => {
     const categorySelectedForm = $("#filter-category").value
     const date = $("#filter-date").value
     const order = $("#filter-order").value
+    const orderDate = dateToString(date)
 
     // filters type, category and date
     for (const operation of operations){
         const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === operation.category)
-        if((typeSelected === "Todos" || typeSelected === operation.type) && (categorySelectedForm === "Todas" || categorySelectedForm === categorySelected.type) && (date <= operation.dateInput)){
+        if((typeSelected === "Todos" || typeSelected === operation.type) && (categorySelectedForm === "Todas" || categorySelectedForm === categorySelected.type) && (orderDate <= operation.dateInput)){
             filteredOperations.push(operation)
         }
     }
@@ -202,30 +206,23 @@ const firstDayMonth = (year, month) => {
     return `${year}-${month}-${firstDay}`
 }
 
-//render categories options
-const renderCategoriesOptions = (categories) => {
-    cleanContainer("#categories-select")
-    cleanContainer("#filter-category")
-    //adding category "Todas" to lists
-    $("#filter-category").innerHTML += `
-        <option value="Todas">Todas</option>`
-    for (const category of categories) {
-        $("#categories-select").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-        $("#filter-category").innerHTML += `
-        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
-    }
+const dateToString = (date) => {
+    const splitDate = date.split("-")
+    return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`
 }
 
 //save new operation data
-const saveOperationData = () => {
+const saveOperationData = (operationId) => {
     const typeValue = $("#type-operation").value
     const categoryId = $("#categories-select").options[$("#categories-select").selectedIndex].getAttribute("data-id")
+    const date =  $("#date-input").value
+    const orderDate = dateToString(date)
+
     return {
-        id: randomId(),
+        id: operationId ? operationId : randomId(),
         descriptionInput: $("#description-input").value,
         amountInput: $("#amount-input").value,
-        dateInput: $("#date-input").value,
+        dateInput: orderDate,
         type: typeValue,
         category: categoryId
     }
@@ -239,6 +236,7 @@ const addOperationForm = () => {
     setDataStorage("operations", currentOperations)
     renderOperations(currentOperations)
 }
+
 
 /*   ---------DELETED OPERATION---------------------DELETED OPERATION-------------------------    DELETED OPERATION  */
 
@@ -273,9 +271,13 @@ const editOperationForm = (id) => {
     showElement("#edit-operation-btn")
     $("#operation-edited-btn").setAttribute("data-id", id)
     const operationSelected = getDataStorage("operations").find(operation => operation.id === id)
+    let date = operationSelected.dateInput.split("-")
+    let orderDate = `${date[2]}-${date[1]}-${date[0]}`
     $("#description-input").value = operationSelected.descriptionInput
     $("#amount-input").value = operationSelected.amountInput
-    $("#date-input").value = operationSelected.dateInput
+    $("#type-operation").value = operationSelected.type
+    //falta poner la categoria seleccionada correctamente cuando se edita
+    $("#date-input").value = orderDate
 }
 
 //edited operation
@@ -289,7 +291,7 @@ const editedOperation = () => {
     const operationId = $("#operation-edited-btn").getAttribute("data-id")
     const editedOperations = getDataStorage("operations").map(operation => {
         if (operation.id === operationId) {
-            return saveOperationData()
+            return saveOperationData(operationId)
         }
         return operation
     })
@@ -310,6 +312,21 @@ const renderCategoriesList = (categories) => {
             </div>
             </li>`
         }
+    }
+}
+
+//render categories options
+const renderCategoriesOptions = (categories) => {
+    cleanContainer("#categories-select")
+    cleanContainer("#filter-category")
+    //adding category "Todas" to lists
+    $("#filter-category").innerHTML += `
+        <option value="Todas">Todas</option>`
+    for (const category of categories) {
+        $("#categories-select").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
+        $("#filter-category").innerHTML += `
+        <option value="${category.type}" data-id="${category.id}">${category.type}</option>`
     }
 }
 
@@ -365,6 +382,7 @@ const modalDeteleCategory = (id) => {
     addBrightness("main")
     addBrightness("footer")
 }
+
 
 //delete category
 const deleteCategory = () => {
@@ -644,14 +662,13 @@ const totalsForMonths = (operations) => {
     } 
 }
 
+
 const initializeApp = () => {
+    $("#filter-date").value = getFullDate(firstDayMonth)
     setDataStorage("operations", allOperations)
     setDataStorage("categories", allCategories)
-    renderOperations(allOperations)
     renderCategoriesOptions(allCategories)
     renderCategoriesList(allCategories)
-
-    $("#filter-date").value = getFullDate(firstDayMonth)
 
     // click btn balance
     $("#btn-balance").addEventListener("click", () =>{
@@ -667,6 +684,7 @@ const initializeApp = () => {
         hideElement("#balance-container")
         hideElement("#reports")
         hideElement("#new-operation-container")
+        setFocus("#category-input")
     })
 
     // click btn reports
@@ -676,6 +694,7 @@ const initializeApp = () => {
         hideElement("#balance-container")
         hideElement("#categories")
         hideElement("#new-operation-container")
+
     })
 
     /* new operation */
@@ -687,6 +706,7 @@ const initializeApp = () => {
         $("#form-operation").reset()
         $("#operation-title").innerHTML = "Nueva operación"
         $("#date-input").value = getFullDate(currentDate)
+        setFocus("#description-input")
     })
 
     /* amount input check */
@@ -765,6 +785,9 @@ const initializeApp = () => {
         removeBrightness("footer")
         deleteCategory()
     })
+
+
+    renderOperations(allOperations)
 }
 
 window.addEventListener("load", initializeApp)
