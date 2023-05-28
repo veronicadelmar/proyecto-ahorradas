@@ -108,6 +108,10 @@ const renderOperations = (operations) => {
     const date = $("#filter-date").value
     const order = $("#filter-order").value
     const orderDate = dateToString(date)
+    //balance
+    let expense = 0
+    let profit = 0
+    let balance = 0
 
     // filters type, category and date
     for (const operation of operations){
@@ -139,6 +143,9 @@ const renderOperations = (operations) => {
             break
     }
     cleanContainer("#operations-table")
+    cleanContainer("#show-profit")
+    cleanContainer("#show-expense")
+    cleanContainer("#show-balance")
     if (sortedOperations.length) {
         hideElement("#balance-no-results")
         showElement("#balance-results")
@@ -158,11 +165,24 @@ const renderOperations = (operations) => {
                 </td>
             </tr>
             `
+            //render balance
+            if(type === "Ganancia"){
+                profit += parseFloat(amountInput)
+                balance += parseFloat(amountInput)
+            }
+            if(type === "Gasto"){
+                expense -= parseFloat(amountInput)
+                balance -= parseFloat(amountInput)
+            }
         }
+
     } else {
         showElement("#balance-no-results")
         hideElement("#balance-results")
     }
+    $("#show-profit").innerHTML = `$`+ profit
+    $("#show-expense").innerHTML = `$`+ expense
+    $("#show-balance").innerHTML = `$`+ balance
 }
 
 //validate new operation
