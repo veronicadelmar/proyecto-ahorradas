@@ -239,7 +239,7 @@ const stringToDate = (dateString) => {
 
 const reportDate = (date) => {
     //return date with follow format MM/YYYY
-    const month = ("0" + date.getUTCMonth()).slice(-2)
+    const month = ("0" + (date.getUTCMonth()+1)).slice(-2)
     const year = date.getFullYear()
     return month + "/" + year
 }
