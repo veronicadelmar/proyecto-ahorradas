@@ -105,9 +105,8 @@ const renderOperations = (operations) => {
     const filteredOperations = []
     const typeSelected = $("#filter-type").value
     const categorySelectedForm = $("#filter-category").value
-    const date = $("#filter-date").value
     const order = $("#filter-order").value
-    const orderDate = dateToString(date)
+    const orderDate = new Date($("#filter-date").value)
     //balance
     let expense = 0
     let profit = 0
@@ -116,7 +115,8 @@ const renderOperations = (operations) => {
     // filters type, category and date
     for (const operation of operations){
         const categorySelected = getDataStorage("categories").find(currentCategory => currentCategory.id === operation.category)
-        if((typeSelected === "Todos" || typeSelected === operation.type) && (categorySelectedForm === "Todas" || categorySelectedForm === categorySelected.type) && (orderDate <= operation.dateInput)){
+        let operationDate = stringToDate(operation.dateInput)
+        if((typeSelected === "Todos" || typeSelected === operation.type) && (categorySelectedForm === "Todas" || categorySelectedForm === categorySelected.type) && (orderDate <= operationDate)) {
             filteredOperations.push(operation)
         }
     }
@@ -183,7 +183,6 @@ const renderOperations = (operations) => {
     $("#show-profit").innerHTML = `$`+ profit
     $("#show-expense").innerHTML = `$`+ expense
     $("#show-balance").innerHTML = `$`+ balance
-    console.log(sortedOperations)
 }
 
 //validate new operation
@@ -229,7 +228,20 @@ const firstDayMonth = (year, month) => {
 
 const dateToString = (date) => {
     const splitDate = date.split("-")
-    return `${splitDate[0]}-${splitDate[1]}-${splitDate[2]}`
+    return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`
+}
+
+const stringToDate = (dateString) => {
+    const splitDate = dateString.split("-")
+    const date = new Date(splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0])
+    return date
+}
+
+const reportDate = (date) => {
+    //return date with follow format MM/YYYY
+    const month = ("0" + date.getUTCMonth()).slice(-2)
+    const year = date.getFullYear()
+    return month + "/" + year
 }
 
 //save new operation data
@@ -530,10 +542,8 @@ const bestProfitMonths = (operations) => {
     let operationsWithoutDays = []
     let uniqueMonths = []
     for (const operation of operations) {
-        const dateInput = new Date(operation.dateInput)
-        let month = dateInput.getUTCMonth() + 1
-        let year = dateInput.getFullYear()
-        const yearMonth = year + "/" + month
+        const dateInput = stringToDate(operation.dateInput)
+        const yearMonth = reportDate(dateInput)
         if (!uniqueMonths.includes(yearMonth)) {
             uniqueMonths.push(yearMonth)
         }
@@ -567,10 +577,8 @@ const higherExpenseMonths = (operations) => {
     let operationsWithoutDays = []
     let uniqueMonths = []
     for (const operation of operations) {
-        const dateInput = new Date(operation.dateInput)
-        let month = dateInput.getUTCMonth() + 1
-        let year = dateInput.getFullYear()
-        const yearMonth = year + "/" + month
+        const dateInput = stringToDate(operation.dateInput)
+        const yearMonth = reportDate(dateInput)
         if (!uniqueMonths.includes(yearMonth)) {
             uniqueMonths.push(yearMonth)
         }
@@ -651,10 +659,8 @@ const totalsForMonths = (operations) => {
     let operationsWithoutDays = []
     let uniqueMonths = []
     for (const operation of operations) {
-        const dateInput = new Date(operation.dateInput)
-        let month = dateInput.getUTCMonth() + 1
-        let year = dateInput.getFullYear()
-        const yearMonth = year + "/" + month
+        const dateInput = stringToDate(operation.dateInput)
+        const yearMonth = reportDate(dateInput)
         if (!uniqueMonths.includes(yearMonth)) {
             uniqueMonths.push(yearMonth)
         }
