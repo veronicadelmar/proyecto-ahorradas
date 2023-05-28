@@ -180,8 +180,8 @@ const renderOperations = (operations) => {
         showElement("#balance-no-results")
         hideElement("#balance-results")
     }
-    $("#show-profit").innerHTML = `$`+ profit
-    $("#show-expense").innerHTML = `$`+ expense
+    $("#show-profit").innerHTML = `$ +`+ profit
+    $("#show-expense").innerHTML = `$ `+ expense
     $("#show-balance").innerHTML = `$`+ balance
 }
 
