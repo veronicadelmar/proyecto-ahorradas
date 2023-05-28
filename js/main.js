@@ -183,6 +183,7 @@ const renderOperations = (operations) => {
     $("#show-profit").innerHTML = `$`+ profit
     $("#show-expense").innerHTML = `$`+ expense
     $("#show-balance").innerHTML = `$`+ balance
+    console.log(sortedOperations)
 }
 
 //validate new operation
@@ -228,7 +229,7 @@ const firstDayMonth = (year, month) => {
 
 const dateToString = (date) => {
     const splitDate = date.split("-")
-    return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`
+    return `${splitDate[0]}-${splitDate[1]}-${splitDate[2]}`
 }
 
 //save new operation data
