@@ -276,9 +276,20 @@ const editOperationForm = (id) => {
     $("#description-input").value = operationSelected.descriptionInput
     $("#amount-input").value = operationSelected.amountInput
     $("#type-operation").value = operationSelected.type
-    //falta poner la categoria seleccionada correctamente cuando se edita
+    //find category selected
+    $("#categories-select").value = findCategorySelected(operationSelected)
     $("#date-input").value = orderDate
 }
+
+//find category selected
+const findCategorySelected = (operationSelected) => {
+    const categories = getDataStorage("categories")
+    const category = categories.find(category => category.id == operationSelected.category)
+    return category ? category.type : categories[0].type
+}
+
+//Total operations by category
+const totalOperationsCategory = (categoryId) => getDataStorage("operations").filter(operation => operation.category === categoryId).length
 
 //edited operation
 const editedOperation = () => {
@@ -374,13 +385,20 @@ const editedCategory = (id) => {
 
 //modal delete category
 const modalDeteleCategory = (id) => {
-    $("#delete-category-current").setAttribute("data-id", id)
-    const categorySelected = getDataStorage("categories").find(category => category.id === id)
-    $("#modal-category-name").innerHTML = categorySelected.type
-    showElement("#modal-delete-category")
     addBrightness("header")
     addBrightness("main")
     addBrightness("footer")
+    $("#delete-category-current").setAttribute("data-id", id)
+    const categorySelected = getDataStorage("categories").find(category => category.id === id)
+
+    if (totalOperationsCategory(id) > 0) {
+        showElement("#modal-cant-delete-category")
+        $("#modal-cant-delete-category-name").innerHTML = categorySelected.type
+        $("#modal-cant-delete-total").innerHTML = totalOperationsCategory(id)
+    } else {
+        showElement("#modal-delete-category")
+        $("#modal-category-name").innerHTML = categorySelected.type
+    }
 }
 
 
@@ -772,6 +790,13 @@ const initializeApp = () => {
     //no delete category
     $("#no-delete-category-current").addEventListener("click", () => {
         hideElement("#modal-delete-category")
+        removeBrightness("header")
+        removeBrightness("main")
+        removeBrightness("footer")
+    })
+
+    $("#cant-delete-category-current").addEventListener("click", () => {
+        hideElement("#modal-cant-delete-category")
         removeBrightness("header")
         removeBrightness("main")
         removeBrightness("footer")
