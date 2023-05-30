@@ -11,10 +11,12 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
     referrerpolicy="no-referrer"/>
+    <!-- style -->
+    <link rel="stylesheet" href="./style.css">
     <title>AhorrADAs</title>
 </head>
 <body class="flex flex-col h-screen">
-    <header class="h-[52px] bg-[#00d1b2] text-white lg:h-[93px] lg:flex lg:items-center lg:px-8">
+    <header class="bg-[#00d1b2] text-white lg:flex lg:items-center lg:px-8 time-transition">
         <section class="header-section flex relative justify-between items-center px-2 px-3 lg:w-full lg:px-6">
             <!-- logo -->
             <a href="./index.html" class="flex items-center lg:w-1/2">
@@ -24,7 +26,7 @@
             <!-- navbar -->
             <div class="nav-bar absolute top-[50px] left-[5px] lg:top-[0] lg:left-[5px] lg:w-1/2 lg:w-1/2 lg:flex lg:justify-end lg:relative">
                 <nav class="p-2.5 text-[#4a4a4a] lg:p-0 lg:text-white">
-                    <ul class="nav-ul flex flex-col hidden lg:flex lg:flex-row">
+                    <ul class="nav-ul flex flex-col lg:items-center hidden lg:flex lg:flex-row">
                         <a href="#" id="btn-balance" class="mb-[15px] lg:mb-[0px]"><li><i class="fa-solid fa-chart-line"></i> Balance</li></a>
                         <a href="#" class="lg:ml-6 mb-[15px] lg:mb-[0px]" id="btn-categories"><li><i class="fa-solid fa-tag"></i> Categorías</li></a>
                         <a href="#" class="lg:ml-6 mb-[15px] lg:mb-[0px]" id="btn-reports"><li><i class="fa-solid fa-chart-pie"></i> Reportes</li></a>
@@ -196,7 +198,7 @@
         </section>
         <!-- categories -->
         <section id="categories" class="p-5 py-20 lg:px-40 xl:px-72 hidden">
-            <article id="new-category-container" class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto">
+            <article id="new-category-container" class="bg-white p-5 rounded-lg shadow-xl shadow-neutral-300 container mx-auto w-auto lg:w-[880px]">
                 <h2 class="font-bold text-4xl text-neutral-600 mb-10">Categorías</h2>
                 <label for="category-name" class="font-medium">Nombre</label>
                 <div class="flex mt-2 mb-6">
@@ -278,8 +280,8 @@
         </section>
     </main>
     <!-- modal window delete operation -->
-    <div id="modal-delete-operation" class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+    <div class="hidden fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-delete-operation">
+        <div class="w-[300px] h-[280px] lg:w-[500px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
                     <img src="./assets/bin-animated.gif" alt="trash animated icon" class="w-[20%]">
@@ -293,8 +295,8 @@
         </div>
     </div>
     <!-- modal window edit operation -->
-    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-edited-operation">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+    <div class="hidden fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-edited-operation">
+        <div class="w-[300px] h-[280px] lg:w-[500px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
                     <img src="./assets//edit-animated.gif" alt="animated checked icon" class="w-[20%]">
@@ -307,8 +309,8 @@
         </div>
     </div>
     <!-- modal window add operation complete -->
-    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-new-operation-done">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+    <div class="hidden fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-new-operation-done">
+        <div class="w-[300px] h-[280px] lg:w-[500px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
                     <img src="./assets/verified-animated.gif" alt="animated checked icon" class="w-[20%]">
@@ -321,8 +323,8 @@
         </div>
     </div>
     <!-- modal window delete category -->
-    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-delete-category">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+    <div class="hidden fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-delete-category">
+        <div class="w-[300px] h-[280px] lg:w-[500px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
                     <img src="./assets/bin-animated.gif" alt="trash animated icon" class="w-[20%]">
@@ -336,8 +338,8 @@
         </div>
     </div>
     <!-- modal window cant delete category -->
-    <div class="hidden w-[300px] h-[280px] lg:w-[500px] absolute top-[40%] left-[50%] translate-y-[-50%] translate-x-[-50%] shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-cant-delete-category">
-        <div class="h-[280px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
+    <div class="hidden fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster shadow-[0_0_11px_0px_rgba(74,74,74,75%)]" id="modal-cant-delete-category">
+        <div class="w-[300px] h-[280px] lg:w-[500px] px-3.5 py-3.5 text-[#4a4a4a] rounded bg-white">
             <div class="h-full flex flex-col justify-evenly">
                 <div class="flex items-center justify-center">
                     <img src="./assets/warning-animated.gif" alt="trash animated icon" class="w-[20%]">
@@ -350,9 +352,9 @@
             </div>
         </div>
     </div>
-    <footer class="h-[50px] flex items-center justify-center text-white bg-[#00d1b2]">
+    <footer class="h-[30px] flex items-center justify-center text-white bg-[#00d1b2] time-transition">
         <div>
-            <p>Rocío Chaparro & Verónica Guiñan © 2023</p>
+            <p>Rocío Chaparro & Verónica Guiñan | © 2023</p>
         </div>
     </footer>
     <script src="./js/main.js"></script>
