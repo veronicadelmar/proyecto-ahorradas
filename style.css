@@ -39,3 +39,7 @@
         opacity: 0;
     }
 }
+
+.time-transition {
+    transition: 0.3s;
+}
