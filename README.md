@@ -1,6 +1,6 @@
 # AhorrADAs
 
-Nosotras somos: Rocío Magalí Chaparro y Verónica Guiñan, ambas estamos estudiando para convertirnos en desarrolladoras Frontend Developer y en esta ocasión les presentamos el segundo proyecto del primer módulo de JavaScript en ADA ITW llamado: AhorrADAs, realizado en grupo.
+Nosotras somos: Rocío Magalí Chaparro y Verónica Guiñan, ambas estamos estudiando para convertirnos en desarrolladoras Frontend Developer y en esta ocasión les presentamos el primer proyecto del segundo módulo de JavaScript en ADA ITW llamado: AhorrADAs, realizado en grupo.
 ***
 
 ## Índice

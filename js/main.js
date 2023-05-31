@@ -759,9 +759,10 @@ const initializeApp = () => {
 
     // click btn balance
     $("#btn-balance").addEventListener("click", () =>{
+        const operationsTable = getDataStorage("operations")
         showElements(["#balance-container"])
         hideElements(["#categories", "#reports", "#new-operation-container"])
-        renderOperations(allOperations)
+        renderOperations(operationsTable)
     })
 
     // click btn categories
