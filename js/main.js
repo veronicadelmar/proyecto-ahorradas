@@ -1,6 +1,74 @@
-/* --- HANDLERS ---S */
+/* handlers */
+
 /* selector */
 const $ = (selector) => document.querySelector(selector)
+
+// set mode style
+const setDefaultColorToSelectors = (selectors, className) => {
+    for (const selector of selectors) {
+        $(selector).classList.remove(className)
+    }
+}
+
+const setDarkModeColorToSelectors = (selectors, className) => {
+    for (const selector of selectors) {
+        $(selector).classList.add(className)
+    }
+} 
+
+const setDarkMode = () => {
+    $("#dark-mode").classList.add("hidden")
+    $("#light-mode").classList.remove("hidden")
+    setDataStorage("darkMode", true)
+
+    //bg color gray
+    setDarkModeColorToSelectors(["body", "main", "#new-category-container", "#reports-box", ".form-operation", "#edit-category-container"], "bg-[#30343f]")
+    //bg color header & footer
+    setDarkModeColorToSelectors(["header", "footer", "#new-operation-btn", "#add-category-btn", "#add-operation-btn", "#edit-operation-btn", "#add-editCategory-btn"], "bg-[#191e2b]")
+    //text white
+    setDarkModeColorToSelectors([".nav-ul", "main", ".form-operation", "#new-category-container", ".alert-amount"], "text-white")
+    //text black
+    setDarkModeColorToSelectors(["#description-input", "#amount-input", "#type-operation", "#categories-select", "#date-input", "#filter-date", "#filter-category", "select", "#filter-order", "#category-name", "#edit-category-input"], "text-black")
+    //adding shadow
+    setDarkModeColorToSelectors(["#balance", "#filters-container", "#operations-container", "#reports-box", ".form-operation", "#new-category-container", "#edit-category-container"], "shadow-[-1px_8px_17px_0px_rgba(0,0,0,49%)]")
+    //bg input color
+    setDarkModeColorToSelectors(["#description-input", "#amount-input", "#type-operation", "#categories-select", "#date-input", "#filter-date", "#filter-category", "select", "#filter-order", "#category-name", "#edit-category-input"], "bg-[#efefef]")
+    //toggle span bg color and text color
+    const elements = document.querySelectorAll(".span")
+    for (const element of elements) {
+        element.classList.add("bg-[#5b658791]")
+        element.classList.add("text-white")
+        element.classList.remove("text-[#00947e]")
+        element.classList.remove("bg-[#ebfffc]")
+    }    
+}
+
+const setDefaultMode = () => {
+    $("#dark-mode").classList.remove("hidden")
+    $("#light-mode").classList.add("hidden")
+    setDataStorage("darkMode", false)
+
+    //bg color gray
+    setDefaultColorToSelectors(["body", "main", "#new-category-container", "#reports-box", ".form-operation", "#edit-category-container"], "bg-[#30343f]")
+    //bg color header & footer
+    setDefaultColorToSelectors(["header", "footer", "#new-operation-btn", "#add-category-btn", "#add-operation-btn", "#edit-operation-btn", "#add-editCategory-btn"], "bg-[#191e2b]")
+    //text white
+    setDefaultColorToSelectors([".nav-ul", "main", ".form-operation", "#new-category-container", ".alert-amount"], "text-white")
+    //text black
+    setDefaultColorToSelectors(["#description-input", "#amount-input", "#type-operation", "#categories-select", "#date-input", "#filter-date", "#filter-category", "select", "#filter-order", "#category-name", "#edit-category-input"], "text-black")
+    //adding shadow
+    setDefaultColorToSelectors(["#balance", "#filters-container", "#operations-container", "#reports-box", ".form-operation", "#new-category-container", "#edit-category-container"], "shadow-[-1px_8px_17px_0px_rgba(0,0,0,49%)]")
+    //bg input color
+    setDefaultColorToSelectors(["#description-input", "#amount-input", "#type-operation", "#categories-select", "#date-input", "#filter-date", "#filter-category", "select", "#filter-order", "#category-name", "#edit-category-input"], "bg-[#efefef]")
+    //toggle span bg color and text color
+    const elements = document.querySelectorAll(".span")
+    for (const element of elements) {
+        element.classList.remove("bg-[#5b658791]")
+        element.classList.remove("text-white")
+        element.classList.add("text-[#00947e]")
+        element.classList.add("bg-[#ebfffc]")
+    }    
+}
 
 //hide elements 
 const hideElements = (selectors) => {
@@ -38,7 +106,7 @@ const randomId = () => self.crypto.randomUUID()
 
 //localStorage
 const getDataStorage = (key) => JSON.parse(localStorage.getItem(key))
-const setDataStorage = (key, array) => localStorage.setItem(key, JSON.stringify(array))
+const setDataStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value))
 
 //clean containers
 const cleanContainers = (selectors) => {
@@ -77,6 +145,11 @@ const defaultCategoriesOptions = [
 
 const allOperations = getDataStorage("operations") || []
 const allCategories = getDataStorage("categories") || defaultCategoriesOptions
+
+const getStyleSpan = () => {
+    let darkMode = getDataStorage("darkMode") || false
+    return darkMode ? "bg-[#5b658791] text-white" : "text-[#00947e] bg-[#ebfffc]"
+}
 
 const renderOperations = (operations) => {
     //filtered operations
@@ -133,7 +206,7 @@ const renderOperations = (operations) => {
             $("#operations-table").innerHTML += `
             <tr class="flex flex-wrap justify-between md:flex-nowrap md:items-center">
                 <td class="w-1/2 font-medium p-3 md:py-3 md:px-0 md:w-3/12 md:flex md:justify-start">${descriptionInput}</td>
-                <td class="flex justify-end w-1/2 text-xs p-3 text-[#00947e] md:w-3/12 md:justify-start md:py-3 md:px-0"><span class="bg-[#ebfffc] px-2 py-0.5 rounded">${categorySelected.type}</span></td>
+                <td class="flex justify-end w-1/2 text-xs p-3 md:w-3/12 md:justify-start md:py-3 md:px-0"><span class="span ${getStyleSpan()} px-2 py-0.5 rounded">${categorySelected.type}</span></td>
                 <td class="hidden w-1/2 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">${dateInput}</td>
                 <td class="${spentAmount} w-1/2 text-2xl p-3 font-bold md:flex md:justify-end md:w-2/12 md:text-base md:py-3 md:px-0">${gainAmount}${amountInput}</td>
                 <td class="w-1/2 text-end p-3 md:flex md:justify-end md:w-2/12 md:py-3 md:px-0">
@@ -315,7 +388,7 @@ const renderCategoriesList = (categories) => {
     if (categories.length) {
         for (const {id, type} of categories) {
             $("#category-list").innerHTML += `
-            <li class="mb-8 flex justify-between"><span class="text-[#00947e] bg-[#ebfffc] p-1 rounded">${type}</span>
+            <li class="mb-8 flex justify-between"><span class="span p-1 ${getStyleSpan()} rounded">${type}</span>
             <div>
                 <button class="mr-6" onclick="editCategory('${id}')"><i class="fa-solid fa-pencil"></i></button>
                 <button  onclick="modalDeteleCategory('${id}')"><i class="fa-solid fa-trash-can"></i></button>
@@ -341,7 +414,7 @@ const renderCategoriesOptions = (categories) => {
 
 // save category , for add new category and edit category
 const saveCategory = (categoryId) => {
-    const inputField = (categoryId ? "#edit-category-input" : "#category-input")
+    const inputField = (categoryId ? "#edit-category-input" : "#category-name")
     const type = $(inputField).value
     return {
       id: (categoryId ? categoryId : randomId()),
@@ -366,6 +439,7 @@ const editCategory = (id) => {
     const editCategorySelected = getDataStorage("categories").find(category => category.id === idCategorySelected)
     $("#edit-category-input").value = editCategorySelected.type
     $("#add-editCategory-btn").setAttribute("data-id", id)
+    setFocus("#edit-category-input")
 }
 
 const editedCategory = (id) => {
@@ -671,6 +745,12 @@ const totalsForMonths = (operations) => {
 
 
 const initializeApp = () => {
+    let darkMode = getDataStorage("darkMode") || false
+    if (darkMode) {
+        setDarkMode()
+    } else {
+        setDefaultMode()
+    } 
     $("#filter-date").value = getFullDate(firstDayMonth)
     setDataStorage("operations", allOperations)
     setDataStorage("categories", allCategories)
@@ -681,13 +761,14 @@ const initializeApp = () => {
     $("#btn-balance").addEventListener("click", () =>{
         showElements(["#balance-container"])
         hideElements(["#categories", "#reports", "#new-operation-container"])
+        renderOperations(allOperations)
     })
 
     // click btn categories
     $("#btn-categories").addEventListener("click", () =>{
         showElements(["#categories"])
         hideElements(["#balance-container", "#reports", "#new-operation-container"])
-        setFocus("#category-input")
+        setFocus("#category-name")
     })
 
     // click btn reports
@@ -786,7 +867,7 @@ const initializeApp = () => {
     //add category btn
     $("#add-category-btn").addEventListener("click", () => {
         addNewCategory()
-        $("#category-input").value = ""
+        $("#category-name").value = ""
     })
 
     //candel edit category
@@ -821,7 +902,24 @@ const initializeApp = () => {
         deleteCategory()
     })
 
+
+    $("#dark-mode-btn").addEventListener("click", () => {
+        let darkMode = getDataStorage("darkMode") || false
+        if (darkMode) {
+            setDefaultMode()
+        } else {
+            setDarkMode()
+        }
+
+    })
+
     renderOperations(allOperations)
+    setTimeout(function() {
+        $("header").classList.add("time-transition")  
+        $("main").classList.add("time-transition")
+        $("footer").classList.add("time-transition")    
+    }, 1)
+
 }
 
 window.addEventListener("load", initializeApp)

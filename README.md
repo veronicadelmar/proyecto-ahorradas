@@ -36,7 +36,7 @@ Eliminar
 - categorías
 
 Finalmente en la sección de Reportes, con un mínimo de 2 operaciones agregadas, podán visualizar un resumen de todos sus movimientos de manera gráfica.
-Es totalmente adaptativo ya que cuenta con media querys.
+Contiene de manera opcional el modo oscuro y es totalmente adaptativo ya que cuenta con media querys.
 ***
 
 ### Herramientas utilizadas
@@ -66,6 +66,20 @@ Reportes
 
 Mobile
 ![Preview del portfolio](/assets/previews-mobile.png)
+
+
+Preview del modo oscuro:
+Balance
+![Preview del portfolio](/assets/preview-balance-dark-mode.png)
+
+Categorías
+![Preview del portfolio](/assets/preview-categories-dark-mode.png)
+
+Reportes
+![Preview del portfolio](/assets/preview-reports-dark-mode.png)
+
+Mobile
+![Preview del portfolio](/assets/previews-mobile-dark-mode.png)
 
 
 

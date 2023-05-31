@@ -43,3 +43,7 @@
 .time-transition {
     transition: 0.3s;
 }
+
+#description-input:focus , #category-input:focus, #amount-input:focus, #categories-select:focus, #date-input:focus, #edit-category-input:focus {
+    outline: none;
+}
